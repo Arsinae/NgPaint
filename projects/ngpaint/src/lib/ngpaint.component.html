@@ -1,0 +1,10 @@
+<div *ngIf="!image.dataUri">
+  <label for="imageUpload" id="imageUploadLabel">
+    <span>Importer une image</span>
+  </label>
+  <input type="file" id="imageUpload" (change)="importImage($event)">
+</div>
+
+<div *ngIf="image.dataUri">
+  <ngp-image-container [image]="image"></ngp-image-container>
+</div>
