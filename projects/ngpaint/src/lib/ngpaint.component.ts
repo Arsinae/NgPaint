@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {NgpaintImageDirective} from './image/ngpaint-image.directive';
+import {FilterService} from './image/filter.service';
 
 @Component({
   selector: 'ngp-ngpaint',
@@ -10,7 +11,9 @@ export class NgpaintComponent implements OnInit {
 
   @Input() image: NgpaintImageDirective = new NgpaintImageDirective();
 
-  constructor() { }
+  @ViewChild ('canvas') canvas;
+
+  constructor(private filterCalculator: FilterService) { }
 
   ngOnInit() {
   }
@@ -22,15 +25,42 @@ export class NgpaintComponent implements OnInit {
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
-          console.log(img);
           this.image.size.x = img.width;
           this.image.size.y = img.height;
           this.image.dataUri = event.target['result'];
+          this.image.dataUriBase = event.target['result'];
+          this.loadInCanvas();
         };
         img.src = event.target['result'];
       };
       reader.readAsDataURL(ev.target.files[0]);
     }
+  }
+
+  loadInCanvas() {
+    this.canvas.nativeElement.width = this.image.size.x;
+    this.canvas.nativeElement.height = this.image.size.y;
+    const ctx = this.canvas.nativeElement.getContext('2d');
+    const img = new Image();
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+    };
+    img.src = this.image.dataUri;
+  }
+
+  applyFilter(filter) {
+    const ctx = this.canvas.nativeElement.getContext('2d');
+    const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+    if (filter.filter === 'invert') {
+      this.filterCalculator.invertColor(imgData);
+    } else if (filter.filter === 'brightness') {
+      this.filterCalculator.changeBrightness(imgData, filter.value / 100);
+    } else if (filter.filter === 'grayscale') {
+      this.filterCalculator.grayscale(imgData);
+    } else if (filter.filter === 'sepia') {
+      this.filterCalculator.sepia(imgData);
+    }
+    ctx.putImageData(imgData, 0, 0);
   }
 
 }

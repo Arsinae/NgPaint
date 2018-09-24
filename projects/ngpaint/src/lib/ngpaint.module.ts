@@ -3,15 +3,21 @@ import { NgpaintComponent } from './ngpaint.component';
 import { NgpaintImageDirective } from './image/ngpaint-image.directive';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ImageContainerComponent } from './image/image-container/image-container.component';
+import {SidemenuModule} from './sidemenu/sidemenu.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ColorManipulationService} from './color-manipulation.service';
+import {FilterService} from './image/filter.service';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SidemenuModule
   ],
-  declarations: [NgpaintComponent, NgpaintImageDirective, ImageContainerComponent],
+  providers: [ColorManipulationService, FilterService],
+  declarations: [NgpaintComponent, NgpaintImageDirective],
   exports: [NgpaintComponent, NgpaintImageDirective]
 })
 export class NgpaintModule { }

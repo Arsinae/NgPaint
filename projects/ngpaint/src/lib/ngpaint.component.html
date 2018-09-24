@@ -5,6 +5,8 @@
   <input type="file" id="imageUpload" (change)="importImage($event)">
 </div>
 
-<div *ngIf="image.dataUri">
-  <ngp-image-container [image]="image"></ngp-image-container>
+<div *ngIf="image.dataUri" class="paintContainer">
+  <ngp-sidemenu [image]="image" (filter)="applyFilter($event)"></ngp-sidemenu>
 </div>
+
+<canvas #canvas></canvas>

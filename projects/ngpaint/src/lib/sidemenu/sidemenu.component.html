@@ -1,0 +1,28 @@
+<div class="sidemenu">
+  <div class="filterMenu">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Filtres
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item (click)="applyFilter('brightness')">
+            Luminosité
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="applyFilter('invert')">
+            Négatif
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="applyFilter('grayscale')">
+            Grayscale
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="applyFilter('sepia')">
+            Sepia
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
