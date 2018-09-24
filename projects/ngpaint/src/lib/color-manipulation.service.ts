@@ -81,4 +81,12 @@ export class ColorManipulationService {
       b: Math.min(255, tb)
     };
   }
+
+  calcContrast(red, green, blue, contrast) {
+    const c = Math.pow((1 + contrast), 2);
+    const r = Math.round((((red / 255) - 0.5) * c + 0.5) * 255);
+    const g = Math.round((((green / 255) - 0.5) * c + 0.5) * 255);
+    const b = Math.round((((blue / 255) - 0.5) * c + 0.5) * 255);
+    return {r: r, g: g, b: b};
+  }
 }

@@ -21,7 +21,22 @@ export class FilterService {
   changeBrightness(imgData, brightness) {
     const px = imgData.data;
     for (let i = 0; i < px.length; i += 4) {
-      this.colorManipulator.rgbToHsl(px[i], px[i + 1], px[i + 2]);
+      const hsl = this.colorManipulator.rgbToHsl(px[i], px[i + 1], px[i + 2]);
+      hsl.l = Math.min(1, hsl.l * brightness);
+      const newColor = this.colorManipulator.hslToRgb(hsl.h, hsl.s, hsl.l);
+      px[i] = newColor.r;
+      px[i + 1] = newColor.g;
+      px[i + 2] = newColor.b;
+    }
+  }
+
+  changeContrast(imgData, contrast) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const newColor = this.colorManipulator.calcContrast(px[i], px[i + 1], px[i + 2], 0.5);
+      px[i] = newColor.r;
+      px[i + 1] = newColor.g;
+      px[i + 2] = newColor.b;
     }
   }
 

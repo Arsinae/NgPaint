@@ -55,6 +55,8 @@ export class NgpaintComponent implements OnInit {
       this.filterCalculator.invertColor(imgData);
     } else if (filter.filter === 'brightness') {
       this.filterCalculator.changeBrightness(imgData, filter.value / 100);
+    } else if (filter.filter === 'contrast') {
+      this.filterCalculator.changeContrast(imgData, filter.value / 100);
     } else if (filter.filter === 'grayscale') {
       this.filterCalculator.grayscale(imgData);
     } else if (filter.filter === 'sepia') {
