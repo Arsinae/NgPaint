@@ -3,17 +3,33 @@
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
+          Luminosité & Contraste
+        </mat-expansion-panel-header>
+        <div class="itemListDisplay">
+          <span>Luminosité</span>
+          <span><input type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
+          <button (click)="applyLuminance('brightness', brightness)">Valider</button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="itemListDisplay">
+          <span>Contraste</span>
+          <span><input type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
+          <button (click)="applyLuminance('contrast', contrast)">Valider</button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="itemListDisplay">
+          <span>Saturation</span>
+          <span><input type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
+          <button (click)="applyLuminance('saturation', saturation)">Valider</button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
           Filtres
         </mat-expansion-panel-header>
         <mat-list>
-          <mat-list-item (click)="applyFilter('brightness')">
-            Luminosité
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('contrast')">
-            Contraste
-          </mat-list-item>
-          <mat-divider></mat-divider>
           <mat-list-item (click)="applyFilter('invert')">
             Négatif
           </mat-list-item>
@@ -25,8 +41,17 @@
           <mat-list-item (click)="applyFilter('sepia')">
             Sepia
           </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="applyFilter('candy')">
+            Candy
+          </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
     </mat-accordion>
+    <mat-list>
+      <mat-list-item (click)="reset.emit()">
+        Image d'origine
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>

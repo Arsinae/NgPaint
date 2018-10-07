@@ -7,6 +7,7 @@ import {SidemenuModule} from './sidemenu/sidemenu.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ColorManipulationService} from './color-manipulation.service';
 import {FilterService} from './image/filter.service';
+import 'hammerjs';
 
 @NgModule({
   imports: [

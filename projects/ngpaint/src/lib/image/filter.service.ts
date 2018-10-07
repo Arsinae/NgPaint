@@ -22,7 +22,7 @@ export class FilterService {
     const px = imgData.data;
     for (let i = 0; i < px.length; i += 4) {
       const hsl = this.colorManipulator.rgbToHsl(px[i], px[i + 1], px[i + 2]);
-      hsl.l = Math.min(1, hsl.l * brightness);
+      hsl.l = Math.min(1, hsl.l * ( 1 + brightness));
       const newColor = this.colorManipulator.hslToRgb(hsl.h, hsl.s, hsl.l);
       px[i] = newColor.r;
       px[i + 1] = newColor.g;
@@ -33,7 +33,19 @@ export class FilterService {
   changeContrast(imgData, contrast) {
     const px = imgData.data;
     for (let i = 0; i < px.length; i += 4) {
-      const newColor = this.colorManipulator.calcContrast(px[i], px[i + 1], px[i + 2], 0.5);
+      const newColor = this.colorManipulator.calcContrast(px[i], px[i + 1], px[i + 2], contrast);
+      px[i] = newColor.r;
+      px[i + 1] = newColor.g;
+      px[i + 2] = newColor.b;
+    }
+  }
+
+  changeSaturation(imgData, saturation) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const hsl = this.colorManipulator.rgbToHsl(px[i], px[i + 1], px[i + 2]);
+      hsl.s = Math.min(1, hsl.s * ( 1 + saturation));
+      const newColor = this.colorManipulator.hslToRgb(hsl.h, hsl.s, hsl.l);
       px[i] = newColor.r;
       px[i + 1] = newColor.g;
       px[i + 2] = newColor.b;
@@ -58,5 +70,16 @@ export class FilterService {
       px[i + 1] = sepia.g;
       px[i + 2] = sepia.b;
     }
+  }
+
+  candy(imgData) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      px[i] = Math.min(255, Math.round(px[i] * 1.05));
+      px[i + 1] = Math.min(255, Math.round(px[i + 1] * 0.85));
+      px[i + 2] = Math.min(255, Math.round(px[i + 2] * 0.95));
+    }
+    this.changeBrightness(imgData, 0.1);
+    this.changeContrast(imgData, 0.1);
   }
 }

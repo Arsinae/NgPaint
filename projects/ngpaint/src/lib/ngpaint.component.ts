@@ -57,12 +57,21 @@ export class NgpaintComponent implements OnInit {
       this.filterCalculator.changeBrightness(imgData, filter.value / 100);
     } else if (filter.filter === 'contrast') {
       this.filterCalculator.changeContrast(imgData, filter.value / 100);
+    } else if (filter.filter === 'saturation') {
+      this.filterCalculator.changeSaturation(imgData, filter.value / 100);
     } else if (filter.filter === 'grayscale') {
       this.filterCalculator.grayscale(imgData);
     } else if (filter.filter === 'sepia') {
       this.filterCalculator.sepia(imgData);
+    } else if (filter.filter === 'candy') {
+      this.filterCalculator.candy(imgData);
     }
     ctx.putImageData(imgData, 0, 0);
+  }
+
+  resetPicture() {
+    this.image.dataUri = this.image.dataUriBase;
+    this.loadInCanvas();
   }
 
 }
