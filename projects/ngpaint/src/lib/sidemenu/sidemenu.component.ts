@@ -9,9 +9,12 @@ import {NgpaintImageDirective} from '../image/ngpaint-image.directive';
 export class SidemenuComponent implements OnInit {
 
   @Input() image: NgpaintImageDirective;
+  @Input() historic: Array<{effect: string, data}>;
 
   @Output() filter: EventEmitter<any> = new EventEmitter();
   @Output() reset: EventEmitter<any> = new EventEmitter();
+
+  submenu = null;
 
   brightness = 0;
   contrast = 0;

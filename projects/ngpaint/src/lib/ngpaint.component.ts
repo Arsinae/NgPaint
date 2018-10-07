@@ -13,6 +13,8 @@ export class NgpaintComponent implements OnInit {
 
   @ViewChild ('canvas') canvas;
 
+  public historic: Array<{effect: string, data: ImageData}> = [];
+
   constructor(private filterCalculator: FilterService) { }
 
   ngOnInit() {
@@ -44,8 +46,16 @@ export class NgpaintComponent implements OnInit {
     const img = new Image();
     img.onload = () => {
       ctx.drawImage(img, 0, 0);
+      this.addToHistoric('original', ctx.getImageData(0, 0, this.image.size.x, this.image.size.y));
     };
     img.src = this.image.dataUri;
+  }
+
+  addToHistoric(effect, data) {
+    this.historic.push({
+      effect: effect,
+      data: data
+    });
   }
 
   applyFilter(filter) {
@@ -66,12 +76,20 @@ export class NgpaintComponent implements OnInit {
     } else if (filter.filter === 'candy') {
       this.filterCalculator.candy(imgData);
     }
+    this.addToHistoric(filter.filter + ': ' + filter.value, imgData);
     ctx.putImageData(imgData, 0, 0);
   }
 
-  resetPicture() {
-    this.image.dataUri = this.image.dataUriBase;
-    this.loadInCanvas();
+  resetPicture(ev) {
+    if (!ev) {
+      this.image.dataUri = this.image.dataUriBase;
+      this.loadInCanvas();
+    } else {
+      console.log(ev);
+      const ctx = this.canvas.nativeElement.getContext('2d');
+      ctx.putImageData(ev.data, 0, 0);
+      this.historic.splice(-1, 1);
+    }
   }
 
 }

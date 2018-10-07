@@ -1,5 +1,31 @@
 <div class="sidemenu">
-  <div class="filterMenu">
+  <div class="mainMenu" *ngIf="!submenu">
+    <mat-list>
+      <mat-list-item>
+        Dessin
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="submenu = 'filter'">
+        Filtres
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="historic.length > 1">
+        <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
+          Annuler
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+      <mat-list-item (click)="reset.emit(null)">
+          Image d'origine
+        </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="filterMenu" *ngIf="submenu === 'filter'">
+    <mat-list>
+      <mat-list-item (click)="submenu = null">
+        &lt; Back
+      </mat-list-item>
+    </mat-list>
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>

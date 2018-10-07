@@ -6,8 +6,8 @@
 </div>
 
 <div class="paintContainer">
-  <div *ngIf="image.dataUri">
-    <ngp-sidemenu [image]="image" (filter)="applyFilter($event)" (reset)="resetPicture()"></ngp-sidemenu>
+  <div *ngIf="image.dataUri" id="menuContainer">
+    <ngp-sidemenu [image]="image" [historic]="historic" (filter)="applyFilter($event)" (reset)="resetPicture($event)"></ngp-sidemenu>
   </div>
 
   <canvas #canvas></canvas>
