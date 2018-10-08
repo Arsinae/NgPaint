@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidemenuComponent } from './sidemenu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatExpansionModule, MatListModule, MatSliderModule} from '@angular/material';
+import {MatExpansionModule, MatListModule, MatRadioModule, MatSliderModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
@@ -13,7 +13,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatListModule,
-    MatSliderModule
+    MatSliderModule,
+    MatRadioModule
   ],
   declarations: [SidemenuComponent],
   exports: [

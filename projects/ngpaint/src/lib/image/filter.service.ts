@@ -82,4 +82,13 @@ export class FilterService {
     this.changeBrightness(imgData, 0.1);
     this.changeContrast(imgData, 0.1);
   }
+
+  colorEmphasing(imgData, value) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      px[i] = (value.color === 'red') ? value.intensity : px[i];
+      px[i + 1] = (value.color === 'green') ? value.intensity : px[i + 1];
+      px[i + 2] = (value.color === 'blue') ? value.intensity : px[i + 2];
+    }
+  }
 }

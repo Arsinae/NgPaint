@@ -34,44 +34,59 @@
         <div class="itemListDisplay">
           <span>Luminosité</span>
           <span><input type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
-          <button (click)="applyLuminance('brightness', brightness)">Valider</button>
+          <button (click)="applyFilter('brightness', brightness)">Valider</button>
         </div>
         <mat-divider></mat-divider>
         <div class="itemListDisplay">
           <span>Contraste</span>
           <span><input type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
-          <button (click)="applyLuminance('contrast', contrast)">Valider</button>
+          <button (click)="applyFilter('contrast', contrast)">Valider</button>
         </div>
         <mat-divider></mat-divider>
         <div class="itemListDisplay">
           <span>Saturation</span>
           <span><input type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
-          <button (click)="applyLuminance('saturation', saturation)">Valider</button>
+          <button (click)="applyFilter('saturation', saturation)">Valider</button>
         </div>
       </mat-expansion-panel>
-    </mat-accordion>
-    <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           Filtres
         </mat-expansion-panel-header>
         <mat-list>
-          <mat-list-item (click)="applyFilter('invert')">
+          <mat-list-item (click)="applyFilter('invert', null)">
             Négatif
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('grayscale')">
+          <mat-list-item (click)="applyFilter('grayscale', null)">
             Grayscale
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('sepia')">
+          <mat-list-item (click)="applyFilter('sepia', null)">
             Sepia
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('candy')">
+          <mat-list-item (click)="applyFilter('candy', null)">
             Candy
           </mat-list-item>
         </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Souligner une couleur
+        </mat-expansion-panel-header>
+        <mat-radio-group [(ngModel)]="emphasing.color">
+          <mat-radio-button value="red">Rouge</mat-radio-button>
+          <mat-radio-button value="green">Vert</mat-radio-button>
+          <mat-radio-button value="blue">Bleu</mat-radio-button>
+        </mat-radio-group>
+        <div class="itemListDisplay">
+          <span>
+            <input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">
+            {{emphasing.intensity}}
+          </span>
+          <button (click)="applyFilter('emphasing', emphasing)">Valider</button>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
     <mat-list>

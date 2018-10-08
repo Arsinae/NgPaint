@@ -75,6 +75,8 @@ export class NgpaintComponent implements OnInit {
       this.filterCalculator.sepia(imgData);
     } else if (filter.filter === 'candy') {
       this.filterCalculator.candy(imgData);
+    } else if (filter.filter === 'emphasing') {
+      this.filterCalculator.colorEmphasing(imgData, filter.value);
     }
     this.addToHistoric(filter.filter + ': ' + filter.value, imgData);
     ctx.putImageData(imgData, 0, 0);
@@ -83,9 +85,9 @@ export class NgpaintComponent implements OnInit {
   resetPicture(ev) {
     if (!ev) {
       this.image.dataUri = this.image.dataUriBase;
+      this.historic = [];
       this.loadInCanvas();
     } else {
-      console.log(ev);
       const ctx = this.canvas.nativeElement.getContext('2d');
       ctx.putImageData(ev.data, 0, 0);
       this.historic.splice(-1, 1);

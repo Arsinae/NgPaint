@@ -19,18 +19,15 @@ export class SidemenuComponent implements OnInit {
   brightness = 0;
   contrast = 0;
   saturation = 0;
+  emphasing = {color: 'red', intensity: 122};
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  applyLuminance(filter, value) {
+  applyFilter(filter, value) {
     this.filter.emit({filter: filter, value: value});
-  }
-
-  applyFilter(filter) {
-    this.filter.emit({filter: filter, value: null});
   }
 
 }
