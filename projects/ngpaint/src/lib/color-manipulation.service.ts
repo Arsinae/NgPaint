@@ -89,4 +89,40 @@ export class ColorManipulationService {
     const b = Math.round((((blue / 255) - 0.5) * c + 0.5) * 255);
     return {r: r, g: g, b: b};
   }
+
+  calcGaussian(data, i, width, height) {
+    const newColor = {r: 0, g: 0, b: 0};
+    let counter = 1;
+    newColor.r = data[i];
+    newColor.g = data[i + 1];
+    newColor.b = data[i + 2];
+    if (i / 4 >= width) {
+      newColor.r += data[i - (width * 4)];
+      newColor.g += data[i - (width * 4) + 1];
+      newColor.b += data[i - (width * 4) + 2];
+      counter += 1;
+    }
+    if (i / 4 < height * width - width) {
+      newColor.r += data[i + (width * 4)];
+      newColor.g += data[i + (width * 4) + 1];
+      newColor.b += data[i + (width * 4) + 2];
+      counter += 1;
+    }
+    if (i / 4 % width !== 0) {
+      newColor.r += data[i - 4];
+      newColor.g += data[i - 4 + 1];
+      newColor.b += data[i - 4 + 2];
+      counter += 1;
+    }
+    if ((i / 4 + 1) % width !== 0) {
+      newColor.r += data[i + 4];
+      newColor.g += data[i + 4 + 1];
+      newColor.b += data[i + 4 + 2];
+      counter += 1;
+    }
+    newColor.r /= counter;
+    newColor.g /= counter;
+    newColor.b /= counter;
+    return newColor;
+  }
 }

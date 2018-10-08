@@ -91,4 +91,14 @@ export class FilterService {
       px[i + 2] = (value.color === 'blue') ? value.intensity : px[i + 2];
     }
   }
+
+  gaussian(imgData) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const gaussColor = this.colorManipulator.calcGaussian(px, i, imgData.width, imgData.height);
+      px[i] = gaussColor.r;
+      px[i + 1] = gaussColor.g;
+      px[i + 2] = gaussColor.b;
+    }
+  }
 }

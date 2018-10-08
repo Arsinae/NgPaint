@@ -53,7 +53,7 @@
         <mat-expansion-panel-header>
           Filtres
         </mat-expansion-panel-header>
-        <mat-list>
+        <mat-list class="filterList">
           <mat-list-item (click)="applyFilter('invert', null)">
             Négatif
           </mat-list-item>
@@ -68,6 +68,9 @@
           <mat-divider></mat-divider>
           <mat-list-item (click)="applyFilter('candy', null)">
             Candy
+          </mat-list-item>
+          <mat-list-item (click)="applyFilter('gaussian', null)">
+            Gaussien
           </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
@@ -90,10 +93,12 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-list>
-      <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
-        Annuler
-      </mat-list-item>
+      <ng-container *ngIf="historic.length > 1">
+        <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
+          Annuler
+        </mat-list-item>
       <mat-divider></mat-divider>
+      </ng-container>
       <mat-list-item (click)="reset.emit()">
         Image d'origine
       </mat-list-item>

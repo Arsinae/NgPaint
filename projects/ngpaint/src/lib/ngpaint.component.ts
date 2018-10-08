@@ -77,6 +77,8 @@ export class NgpaintComponent implements OnInit {
       this.filterCalculator.candy(imgData);
     } else if (filter.filter === 'emphasing') {
       this.filterCalculator.colorEmphasing(imgData, filter.value);
+    } else if (filter.filter === 'gaussian') {
+      this.filterCalculator.gaussian(imgData);
     }
     this.addToHistoric(filter.filter + ': ' + filter.value, imgData);
     ctx.putImageData(imgData, 0, 0);
