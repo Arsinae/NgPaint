@@ -90,6 +90,10 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-list>
+      <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
+        Annuler
+      </mat-list-item>
+      <mat-divider></mat-divider>
       <mat-list-item (click)="reset.emit()">
         Image d'origine
       </mat-list-item>
