@@ -125,4 +125,25 @@ export class ColorManipulationService {
     newColor.b /= counter;
     return newColor;
   }
+
+  calcSharpen(data, i, width) {
+    if (i / 4 % width === 0 || (i / 4 + 1) % width === 0) {
+      return {r: data[i], g: data[i + 1], b: data[i + 2]};
+    }
+    const newColor = {
+      r: 9 * data[i],
+      g: 9 * data[i + 1],
+      b: 9 * data[i + 2]
+    };
+    newColor.r -= (data[i - (width * 4) - 4] + data[i - (width * 4)] + data[i - (width * 4) + 4] + data[i - 4] +
+      data[i + 4] + data[i + (width * 4) - 4] + data[i + (width * 4)] + data[i + (width * 4) + 4]);
+    newColor.g -= (data[i - (width * 4) - 4 + 1] + data[i - (width * 4) + 1] + data[i - (width * 4) + 4 + 1] + data[i - 4 + 1]
+      + data[i + 4 + 1] + data[i + (width * 4) - 4 + 1] + data[i + (width * 4) + 1] + data[i + (width * 4) + 4 + 1]);
+    newColor.b -= (data[i - (width * 4) - 4 + 2] + data[i - (width * 4) + 2] + data[i - (width * 4) + 4 + 2] + data[i - 4 + 2]
+      + data[i + 4 + 2] + data[i + (width * 4) - 4 + 2] + data[i + (width * 4) + 2] + data[i + (width * 4) + 4 + 2]);
+    newColor.r = Math.min(newColor.r, 255);
+    newColor.g = Math.min(newColor.g, 255);
+    newColor.b = Math.min(newColor.b, 255);
+    return newColor;
+  }
 }

@@ -101,4 +101,14 @@ export class FilterService {
       px[i + 2] = gaussColor.b;
     }
   }
+
+  sharpen(imgData) {
+    const px = imgData.data;
+    for (let i = imgData.width * 4; i < px.length - (imgData.width * 4); i += 4) {
+      const newColor = this.colorManipulator.calcSharpen(px, i, imgData.width);
+      px[i] = newColor.r;
+      px[i + 1] = newColor.g;
+      px[i + 2] = newColor.b;
+    }
+  }
 }
