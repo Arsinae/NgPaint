@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {NgpaintImageDirective} from './image/ngpaint-image.directive';
 import {FilterService} from './image/filter.service';
+import {PixelDrawingService} from './image/pixel-drawing.service';
 
 @Component({
   selector: 'ngp-ngpaint',
@@ -13,9 +14,12 @@ export class NgpaintComponent implements OnInit {
 
   @ViewChild ('canvas') canvas;
 
+  draw: string = null;
+  drawColor = '#ff0000';
+
   public historic: Array<{effect: string, data: ImageData}> = [];
 
-  constructor(private filterCalculator: FilterService) { }
+  constructor(private filterCalculator: FilterService, private pixelDrawing: PixelDrawingService) { }
 
   ngOnInit() {
   }
@@ -95,6 +99,26 @@ export class NgpaintComponent implements OnInit {
       const ctx = this.canvas.nativeElement.getContext('2d');
       ctx.putImageData(ev.data, 0, 0);
       this.historic.splice(-1, 1);
+    }
+  }
+
+  getDrawing(ev) {
+    this.draw = ev;
+    if (this.draw === 'draw') {
+      this.canvas.nativeElement.onmousedown = (event) => {
+        this.pixelDrawing.drawPixel(event, this.canvas.nativeElement, this.drawColor);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw pixel', imgData);
+        document.onmousemove = (click) => {
+          this.pixelDrawing.drawLine(click, this.canvas.nativeElement);
+          const imgDataMove = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+          this.addToHistoric('draw line', imgDataMove);
+        };
+        document.onmouseup = () => {
+          this.pixelDrawing.stopDrawing();
+        };
+      };
     }
   }
 

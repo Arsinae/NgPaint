@@ -4,6 +4,7 @@ import { SidemenuComponent } from './sidemenu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatExpansionModule, MatListModule, MatRadioModule, MatSliderModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ColorPickerModule} from 'ngx-color-picker';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatExpansionModule,
     MatListModule,
     MatSliderModule,
-    MatRadioModule
+    MatRadioModule,
+    ColorPickerModule
   ],
   declarations: [SidemenuComponent],
   exports: [

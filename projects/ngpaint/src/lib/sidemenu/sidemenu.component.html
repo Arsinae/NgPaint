@@ -1,7 +1,7 @@
 <div class="sidemenu">
   <div class="mainMenu" *ngIf="!submenu">
     <mat-list>
-      <mat-list-item>
+      <mat-list-item (click)="submenu = 'draw'">
         Dessin
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -16,8 +16,32 @@
         <mat-divider></mat-divider>
       </ng-container>
       <mat-list-item (click)="reset.emit(null)">
-          Image d'origine
+        Image d'origine
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="drawMenu" *ngIf="submenu === 'draw'">
+    <mat-list>
+      <mat-list-item (click)="submenu = null; draw.emit(null)">
+        &lt; Back
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="draw.emit('draw')">
+        Pinceau
+      </mat-list-item>
+      <mat-list-item>
+        <input [colorPicker]="drawColor" [value]="drawColor" [style.background]="drawColor" [cpOutputFormat]="'hexa'"
+        (colorPickerChange)="changeDrawColor($event)" >
+      </mat-list-item>
+      <ng-container *ngIf="historic.length > 1">
+        <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
+          Annuler
         </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+      <mat-list-item (click)="reset.emit(null)">
+        Image d'origine
+      </mat-list-item>
     </mat-list>
   </div>
   <div class="filterMenu" *ngIf="submenu === 'filter'">

@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ColorManipulationService} from './color-manipulation.service';
 import {FilterService} from './image/filter.service';
 import 'hammerjs';
+import {PixelDrawingService} from './image/pixel-drawing.service';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import 'hammerjs';
     ReactiveFormsModule,
     SidemenuModule
   ],
-  providers: [ColorManipulationService, FilterService],
+  providers: [ColorManipulationService, FilterService, PixelDrawingService],
   declarations: [NgpaintComponent, NgpaintImageDirective],
   exports: [NgpaintComponent, NgpaintImageDirective]
 })

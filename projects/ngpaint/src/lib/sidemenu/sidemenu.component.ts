@@ -10,9 +10,12 @@ export class SidemenuComponent implements OnInit {
 
   @Input() image: NgpaintImageDirective;
   @Input() historic: Array<{effect: string, data}>;
+  @Input() drawColor: string;
 
   @Output() filter: EventEmitter<any> = new EventEmitter();
   @Output() reset: EventEmitter<any> = new EventEmitter();
+  @Output() draw: EventEmitter<any> = new EventEmitter();
+  @Output() drawColorChange: EventEmitter<any> = new EventEmitter();
 
   submenu = null;
 
@@ -28,6 +31,11 @@ export class SidemenuComponent implements OnInit {
 
   applyFilter(filter, value) {
     this.filter.emit({filter: filter, value: value});
+  }
+
+  changeDrawColor(event) {
+    this.drawColor = event;
+    this.drawColorChange.emit(this.drawColor);
   }
 
 }

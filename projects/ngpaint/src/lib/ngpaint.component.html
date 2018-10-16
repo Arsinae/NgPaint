@@ -7,10 +7,12 @@
 
 <div class="paintContainer">
   <div *ngIf="image.dataUri" id="menuContainer">
-    <ngp-sidemenu [image]="image" [historic]="historic" (filter)="applyFilter($event)" (reset)="resetPicture($event)"></ngp-sidemenu>
+    <ngp-sidemenu [image]="image" [historic]="historic" [(drawColor)]="drawColor"
+                  (filter)="applyFilter($event)" (reset)="resetPicture($event)" (draw)="getDrawing($event)">
+    </ngp-sidemenu>
   </div>
 
-  <div>
+  <div [class.drawing]="draw">
     <canvas #canvas></canvas>
   </div>
 </div>
