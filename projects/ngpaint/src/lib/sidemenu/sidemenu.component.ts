@@ -10,12 +10,12 @@ export class SidemenuComponent implements OnInit {
 
   @Input() image: NgpaintImageDirective;
   @Input() historic: Array<{effect: string, data}>;
-  @Input() drawColor: string;
+  @Input() drawParam: {color: string, size: number};
 
   @Output() filter: EventEmitter<any> = new EventEmitter();
   @Output() reset: EventEmitter<any> = new EventEmitter();
   @Output() draw: EventEmitter<any> = new EventEmitter();
-  @Output() drawColorChange: EventEmitter<any> = new EventEmitter();
+  @Output() drawParamChange: EventEmitter<any> = new EventEmitter();
 
   submenu = null;
 
@@ -34,8 +34,8 @@ export class SidemenuComponent implements OnInit {
   }
 
   changeDrawColor(event) {
-    this.drawColor = event;
-    this.drawColorChange.emit(this.drawColor);
+    this.drawParam.color = event;
+    this.drawParamChange.emit(this.drawParam);
   }
 
 }

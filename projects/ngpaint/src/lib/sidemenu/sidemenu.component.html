@@ -29,10 +29,20 @@
       <mat-list-item (click)="draw.emit('draw')">
         Pinceau
       </mat-list-item>
+      <mat-divider></mat-divider>
       <mat-list-item>
-        <input [colorPicker]="drawColor" [value]="drawColor" [style.background]="drawColor" [cpOutputFormat]="'hexa'"
+        <div>Couleur: </div>
+        <input [colorPicker]="drawParam.color" [value]="drawParam.color" [style.background]="drawParam.color" [cpOutputFormat]="'hexa'"
         (colorPickerChange)="changeDrawColor($event)" >
       </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div>Taille: </div>
+        <span><input type="range" min="1" max="15" [(ngModel)]="drawParam.size" (change)="drawParamChange.emit(drawParam)">
+          {{drawParam.size}}px
+        </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
       <ng-container *ngIf="historic.length > 1">
         <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
           Annuler

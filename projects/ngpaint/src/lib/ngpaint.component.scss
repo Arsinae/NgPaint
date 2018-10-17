@@ -18,6 +18,14 @@
   padding-left: 6px;
 }
 
+.canvasContainer {
+  position: relative;
+
+  canvas {
+    position: absolute;
+  }
+}
+
 .drawing {
   cursor: crosshair;
 }

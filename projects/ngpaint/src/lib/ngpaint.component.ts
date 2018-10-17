@@ -13,9 +13,10 @@ export class NgpaintComponent implements OnInit {
   @Input() image: NgpaintImageDirective = new NgpaintImageDirective();
 
   @ViewChild ('canvas') canvas;
+  @ViewChild ('drawingInstance') drawingInstance;
 
   draw: string = null;
-  drawColor = '#ff0000';
+  drawParam = {color: '#ff0000', size: 1};
 
   public historic: Array<{effect: string, data: ImageData}> = [];
 
@@ -46,6 +47,8 @@ export class NgpaintComponent implements OnInit {
   loadInCanvas() {
     this.canvas.nativeElement.width = this.image.size.x;
     this.canvas.nativeElement.height = this.image.size.y;
+    this.drawingInstance.nativeElement.width = this.image.size.x;
+    this.drawingInstance.nativeElement.height = this.image.size.y;
     const ctx = this.canvas.nativeElement.getContext('2d');
     const img = new Image();
     img.onload = () => {
@@ -105,18 +108,16 @@ export class NgpaintComponent implements OnInit {
   getDrawing(ev) {
     this.draw = ev;
     if (this.draw === 'draw') {
-      this.canvas.nativeElement.onmousedown = (event) => {
-        this.pixelDrawing.drawPixel(event, this.canvas.nativeElement, this.drawColor);
-        const ctx = this.canvas.nativeElement.getContext('2d');
-        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
-        this.addToHistoric('draw pixel', imgData);
+      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+        this.pixelDrawing.drawPixel(event, this.drawingInstance.nativeElement, this.drawParam);
         document.onmousemove = (click) => {
-          this.pixelDrawing.drawLine(click, this.canvas.nativeElement);
-          const imgDataMove = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
-          this.addToHistoric('draw line', imgDataMove);
+          this.pixelDrawing.drawLine(click, this.drawingInstance.nativeElement);
         };
         document.onmouseup = () => {
-          this.pixelDrawing.stopDrawing();
+          this.pixelDrawing.stopDrawing(this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+          const ctx = this.canvas.nativeElement.getContext('2d');
+          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+          this.addToHistoric('drawing', imgData);
         };
       };
     }
