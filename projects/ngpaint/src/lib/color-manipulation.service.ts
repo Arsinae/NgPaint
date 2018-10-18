@@ -146,4 +146,22 @@ export class ColorManipulationService {
     newColor.b = Math.min(newColor.b, 255);
     return newColor;
   }
+
+  calcRainbow(i, width) {
+    const colorPos = Math.round(i / 4 % width) / (width / 6);
+    const alignment = Math.ceil(colorPos % 1 * 100);
+    if (colorPos < 1) {
+      return ({r: 220, g: 110 / 100 * alignment, b: null});
+    } else if (colorPos < 2) {
+      return ({r: 220, g: 110 + 110 / 100 * alignment, b: null});
+    } else if (colorPos < 3) {
+      return ({r: 220 - (220 / 100 * alignment), g: 220, b: null});
+    } else if (colorPos < 4) {
+      return ({r: null, g: 220 - (220 / 100 * alignment), b: 220 / 100 * alignment});
+    } else if (colorPos < 5) {
+      return ({r: 65 / 100 * alignment, g: null, b: 220 - (110 / 100 * alignment)});
+    } else  {
+      return ({r: 65 + (63 / 100 * alignment), g: null, b: 110 + (71 / 100 * alignment)});
+    }
+  }
 }

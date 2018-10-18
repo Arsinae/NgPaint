@@ -83,6 +83,17 @@ export class FilterService {
     this.changeContrast(imgData, 0.1);
   }
 
+  rainbow(imgData) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const rainbow = this.colorManipulator.calcRainbow(i, imgData.width);
+      px[i] = (rainbow.r + px[i] * 0.6) / 2;
+      px[i + 1] = (rainbow.g + px[i + 1] * 0.6) / 2;
+      px[i + 2] = (rainbow.b + px[i + 2] * 0.6) / 2;
+    }
+    this.changeBrightness(imgData, 0.10);
+  }
+
   colorEmphasing(imgData, value) {
     const px = imgData.data;
     for (let i = 0; i < px.length; i += 4) {
