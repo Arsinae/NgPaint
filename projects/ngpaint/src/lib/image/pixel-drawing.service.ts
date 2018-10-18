@@ -84,4 +84,41 @@ export class PixelDrawingService {
     document.onmousemove = null;
     document.onmouseup = null;
   }
+
+  drawRoundBase(click, canvas, param) {
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    ctx.fillStyle = param.color;
+    ctx.beginPath();
+    ctx.arc(posX, posY, 1, 0, 2 * Math.PI, false);
+    ctx.fill();
+    this.pixelDraw.push({x: posX, y: posY});
+  }
+
+  drawRound(click, canvas) {
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    const dist = Math.sqrt(Math.pow(posX - this.pixelDraw[0].x, 2) + Math.pow(posY - this.pixelDraw[0].y, 2));
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(this.pixelDraw[0].x, this.pixelDraw[0].y, dist, 0, 2 * Math.PI, false);
+    ctx.fill();
+  }
+
+  printRound(click, canvas, drawingInstance, param) {
+    drawingInstance.getContext('2d').clearRect(0, 0, drawingInstance.width, drawingInstance.height);
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    const dist = Math.sqrt(Math.pow(posX - this.pixelDraw[0].x, 2) + Math.pow(posY - this.pixelDraw[0].y, 2));
+    ctx.fillStyle = param.color;
+    ctx.beginPath();
+    ctx.arc(this.pixelDraw[0].x, this.pixelDraw[0].y, dist, 0, 2 * Math.PI, false);
+    ctx.fill();
+    this.pixelDraw = [];
+    document.onmousemove = null;
+    document.onmouseup = null;
+  }
 }
