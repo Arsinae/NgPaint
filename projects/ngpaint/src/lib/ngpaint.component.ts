@@ -114,10 +114,28 @@ export class NgpaintComponent implements OnInit {
           this.pixelDrawing.drawLine(click, this.drawingInstance.nativeElement);
         };
         document.onmouseup = () => {
-          this.pixelDrawing.stopDrawing(this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+          this.pixelDrawing.printDrawing(this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+          const ctx = this.canvas.nativeElement.getContext('2d');
+          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+          this.addToHistoric('draw pixel', imgData);
+        };
+      };
+    } else if (this.draw === 'square') {
+      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+        this.pixelDrawing.drawSquareBase(event, this.drawingInstance.nativeElement, this.drawParam);
+        document.onmousemove = (click) => {
+          this.pixelDrawing.drawSquare(click, this.drawingInstance.nativeElement);
+        };
+        document.onmouseup = (click) => {
           const ctx = this.canvas.nativeElement.getContext('2d');
           const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
           this.addToHistoric('drawing', imgData);
+        };
+        document.onmouseup = (click) => {
+          this.pixelDrawing.printSquare(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+          const ctx = this.canvas.nativeElement.getContext('2d');
+          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+          this.addToHistoric('draw pixel', imgData);
         };
       };
     }

@@ -30,6 +30,10 @@
         Pinceau
       </mat-list-item>
       <mat-divider></mat-divider>
+      <mat-list-item (click)="draw.emit('square')">
+        Carré
+      </mat-list-item>
+      <mat-divider></mat-divider>
       <mat-list-item>
         <div>Couleur: </div>
         <input [colorPicker]="drawParam.color" [value]="drawParam.color" [style.background]="drawParam.color" [cpOutputFormat]="'hexa'"
