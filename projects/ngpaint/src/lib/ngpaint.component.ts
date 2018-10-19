@@ -90,6 +90,8 @@ export class NgpaintComponent implements OnInit {
       this.filterCalculator.gaussian(imgData);
     } else if (filter.filter === 'sharpen') {
       this.filterCalculator.sharpen(imgData);
+    } else if (filter.filter === 'vignetting') {
+      this.filterCalculator.vignetting(imgData, filter.value);
     }
     this.addToHistoric(filter.filter + ': ' + filter.value, imgData);
     ctx.putImageData(imgData, 0, 0);

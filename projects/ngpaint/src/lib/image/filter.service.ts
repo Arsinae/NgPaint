@@ -94,6 +94,21 @@ export class FilterService {
     this.changeBrightness(imgData, 0.10);
   }
 
+  vignetting(imgData, value) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const percent = this.colorManipulator.calcVignettingDistance(i, imgData.width, imgData.height, value);
+      if (percent > 0) {
+        const hsl = this.colorManipulator.rgbToHsl(px[i], px[i + 1], px[i + 2]);
+        hsl.l = Math.min(1, hsl.l * (1 - percent));
+        const newColor = this.colorManipulator.hslToRgb(hsl.h, hsl.s, hsl.l);
+        px[i] = newColor.r;
+        px[i + 1] = newColor.g;
+        px[i + 2] = newColor.b;
+      }
+    }
+  }
+
   colorEmphasing(imgData, value) {
     const px = imgData.data;
     for (let i = 0; i < px.length; i += 4) {

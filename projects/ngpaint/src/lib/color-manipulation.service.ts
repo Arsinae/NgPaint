@@ -164,4 +164,13 @@ export class ColorManipulationService {
       return ({r: 65 + (63 / 100 * alignment), g: null, b: 110 + (71 / 100 * alignment)});
     }
   }
+
+  calcVignettingDistance(i, width, height, vignette) {
+    const pos = {x: (i / 4) % width, y: (i / 4) / height};
+    const center = {x : width / 2, y: height / 2};
+    const dist = Math.sqrt(Math.pow(center.x - pos.x, 2) + Math.pow(center.y - pos.y, 2));
+    const maxDist = Math.sqrt(Math.pow(center.x, 2) + Math.pow(center.y, 2));
+    const percent = Math.max(dist / maxDist - vignette, 0) / (1 - vignette);
+    return percent;
+  }
 }
