@@ -12,10 +12,11 @@ export class SidemenuComponent implements OnInit {
   @Input() historic: Array<{effect: string, data}>;
   @Input() drawParam: {color: string, size: number};
 
-  @Output() filter: EventEmitter<any> = new EventEmitter();
   @Output() reset: EventEmitter<any> = new EventEmitter();
+  @Output() download: EventEmitter<any> = new EventEmitter();
   @Output() draw: EventEmitter<any> = new EventEmitter();
   @Output() drawParamChange: EventEmitter<any> = new EventEmitter();
+  @Output() filter: EventEmitter<any> = new EventEmitter();
 
   submenu = null;
 

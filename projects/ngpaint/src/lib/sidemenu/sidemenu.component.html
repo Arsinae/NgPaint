@@ -18,6 +18,10 @@
       <mat-list-item (click)="reset.emit(null)">
         Image d'origine
       </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="download.emit(null)">
+        Télécharger
+      </mat-list-item>
     </mat-list>
   </div>
   <div class="drawMenu" *ngIf="submenu === 'draw'">

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {NgpaintImageDirective} from './image/ngpaint-image.directive';
 import {FilterService} from './image/filter.service';
 import {PixelDrawingService} from './image/pixel-drawing.service';
@@ -11,6 +11,8 @@ import {PixelDrawingService} from './image/pixel-drawing.service';
 export class NgpaintComponent implements OnInit {
 
   @Input() image: NgpaintImageDirective = new NgpaintImageDirective();
+
+  @Output() dataUrl: EventEmitter<any> = new EventEmitter();
 
   @ViewChild ('canvas') canvas;
   @ViewChild ('drawingInstance') drawingInstance;
@@ -107,6 +109,10 @@ export class NgpaintComponent implements OnInit {
       ctx.putImageData(ev.data, 0, 0);
       this.historic.splice(-1, 1);
     }
+  }
+
+  downloadPicture() {
+    this.dataUrl.emit(this.canvas.nativeElement.toDataURL());
   }
 
   getDrawing(ev) {
