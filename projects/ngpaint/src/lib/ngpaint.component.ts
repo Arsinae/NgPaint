@@ -94,6 +94,8 @@ export class NgpaintComponent implements OnInit {
       this.filterCalculator.sharpen(imgData);
     } else if (filter.filter === 'vignetting') {
       this.filterCalculator.vignetting(imgData, filter.value);
+    } else if (filter.filter === 'splash') {
+      this.filterCalculator.splash(imgData, filter.value.color, filter.value.dist);
     }
     this.addToHistoric(filter.filter + ': ' + filter.value, imgData);
     ctx.putImageData(imgData, 0, 0);

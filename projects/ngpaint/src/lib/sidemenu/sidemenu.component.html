@@ -150,6 +150,18 @@
           <button (click)="applyFilter('emphasing', emphasing)">Valider</button>
         </div>
       </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Splash
+        </mat-expansion-panel-header>
+        <div class="itemListDisplay">
+          <input [(colorPicker)]="splash.color" [value]="splash.color" [style.background]="splash.color" [cpOutputFormat]="'hexa'">
+          <span>
+            <input type="range" min="10" max="100" [(ngModel)]="splash.dist"> {{splash.dist}}
+          </span>
+          <button (click)="applyFilter('splash', splash)">Valider</button>
+        </div>
+      </mat-expansion-panel>
     </mat-accordion>
     <mat-list>
       <ng-container *ngIf="historic.length > 1">

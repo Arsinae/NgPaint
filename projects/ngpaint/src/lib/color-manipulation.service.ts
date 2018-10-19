@@ -173,4 +173,16 @@ export class ColorManipulationService {
     const percent = Math.max(dist / maxDist - vignette, 0) / (1 - vignette);
     return percent;
   }
+
+  calcSplash(data, i, refColor, distMax) {
+    let dist = Math.pow(data[i] - refColor.r, 2) + Math.pow(data[i + 1] - refColor.g, 2)
+      + Math.pow(data[i + 2] - refColor.b, 2);
+    dist = Math.sqrt(dist);
+    if (dist < distMax) {
+      return ({r: data[i], g: data[i + 1], b: data[i + 2]});
+    } else {
+      const gray = this.getGray(data[i], data[i + 1], data[i + 2]);
+      return ({r: gray, g: gray, b: gray});
+    }
+  }
 }

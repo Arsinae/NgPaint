@@ -137,4 +137,18 @@ export class FilterService {
       px[i + 2] = newColor.b;
     }
   }
+
+  splash(imgData, refColor, dist) {
+    const px = imgData.data;
+    const refRGB = {r: parseInt(refColor.substr(1, 2), 16),
+      g: parseInt(refColor.substr(3, 2), 16),
+      b: parseInt(refColor.substr(5, 2), 16)};
+    console.log(refColor, refRGB);
+    for (let i = 0; i < px.length; i += 4) {
+      const splashColor = this.colorManipulator.calcSplash(px, i, refRGB, dist);
+      px[i] = splashColor.r;
+      px[i + 1] = splashColor.g;
+      px[i + 2] = splashColor.b;
+    }
+  }
 }

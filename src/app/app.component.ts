@@ -12,11 +12,5 @@ export class AppComponent {
     const href = document.createElement('a');
     href.href = dataUri;
     href.setAttribute('download', 'image.png');
-    href.innerText = 'image';
-    href.onclick = () => {
-      console.log('a');
-    };
-    href.click();
-    document.body.appendChild(href);
   }
 }

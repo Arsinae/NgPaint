@@ -24,6 +24,7 @@ export class SidemenuComponent implements OnInit {
   contrast = 0;
   saturation = 0;
   emphasing = {color: 'red', intensity: 122};
+  splash = {color: '#ff0000', dist: 40};
 
   constructor() { }
 
