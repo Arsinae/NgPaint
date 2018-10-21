@@ -185,4 +185,15 @@ export class ColorManipulationService {
       return ({r: gray, g: gray, b: gray});
     }
   }
+
+  warmColor(data, i, transfer) {
+    const hsl = this.rgbToHsl(data[i], data[i + 1], data[i + 2]);
+    if (hsl.h > transfer && hsl.h <= 180) {
+      hsl.h = /*hsl.h * (1 - transfer / 100);*/ hsl.h - transfer;
+    } else if (hsl.h > 180 && hsl.h < 360 - transfer) {
+      hsl.h = /*hsl.h + (180 - (hsl.h - 180)) * (1 - transfer / 100);*/ hsl.h + transfer;
+    }
+    hsl.h = Math.round(hsl.h);
+    return this.hslToRgb(hsl.h, hsl.s, hsl.l);
+  }
 }

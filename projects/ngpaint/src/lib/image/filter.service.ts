@@ -143,12 +143,22 @@ export class FilterService {
     const refRGB = {r: parseInt(refColor.substr(1, 2), 16),
       g: parseInt(refColor.substr(3, 2), 16),
       b: parseInt(refColor.substr(5, 2), 16)};
-    console.log(refColor, refRGB);
     for (let i = 0; i < px.length; i += 4) {
       const splashColor = this.colorManipulator.calcSplash(px, i, refRGB, dist);
       px[i] = splashColor.r;
       px[i + 1] = splashColor.g;
       px[i + 2] = splashColor.b;
     }
+  }
+
+  warmer(imgData, transfer) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const newColor = this.colorManipulator.warmColor(px, i, transfer);
+      px[i] = newColor.r;
+      px[i + 1] = newColor.g;
+      px[i + 2] = newColor.b;
+    }
+    this.changeBrightness(imgData, 0.1);
   }
 }
