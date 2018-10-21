@@ -161,4 +161,15 @@ export class FilterService {
     }
     this.changeBrightness(imgData, 0.1);
   }
+
+  colder(imgData, transfer) {
+    const px = imgData.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const newColor = this.colorManipulator.coldColor(px, i, transfer);
+      px[i] = newColor.r;
+      px[i + 1] = newColor.g;
+      px[i + 2] = newColor.b;
+    }
+    this.changeContrast(imgData, 0.1);
+  }
 }

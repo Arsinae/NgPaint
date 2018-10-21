@@ -166,7 +166,7 @@ export class ColorManipulationService {
   }
 
   calcVignettingDistance(i, width, height, vignette) {
-    const pos = {x: (i / 4) % width, y: (i / 4) / height};
+    const pos = {x: (i / 4) % width, y: (i / 4) / width};
     const center = {x : width / 2, y: height / 2};
     const dist = Math.sqrt(Math.pow(center.x - pos.x, 2) + Math.pow(center.y - pos.y, 2));
     const maxDist = Math.sqrt(Math.pow(center.x, 2) + Math.pow(center.y, 2));
@@ -189,11 +189,20 @@ export class ColorManipulationService {
   warmColor(data, i, transfer) {
     const hsl = this.rgbToHsl(data[i], data[i + 1], data[i + 2]);
     if (hsl.h > transfer && hsl.h <= 180) {
-      hsl.h = /*hsl.h * (1 - transfer / 100);*/ hsl.h - transfer;
+      hsl.h = hsl.h - transfer;
     } else if (hsl.h > 180 && hsl.h < 360 - transfer) {
-      hsl.h = /*hsl.h + (180 - (hsl.h - 180)) * (1 - transfer / 100);*/ hsl.h + transfer;
+      hsl.h = hsl.h + transfer;
     }
-    hsl.h = Math.round(hsl.h);
+    return this.hslToRgb(hsl.h, hsl.s, hsl.l);
+  }
+
+  coldColor(data, i, transfer) {
+    const hsl = this.rgbToHsl(data[i], data[i + 1], data[i + 2]);
+    if (hsl.h + transfer <= 240) {
+      hsl.h += transfer;
+    } else if (hsl.h > 240 + transfer) {
+      hsl.h -= transfer;
+    }
     return this.hslToRgb(hsl.h, hsl.s, hsl.l);
   }
 }

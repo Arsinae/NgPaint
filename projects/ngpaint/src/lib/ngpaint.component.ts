@@ -98,6 +98,8 @@ export class NgpaintComponent implements OnInit {
       this.filterCalculator.splash(imgData, filter.value.color, filter.value.dist);
     } else if (filter.filter === 'warmer') {
       this.filterCalculator.warmer(imgData, filter.value);
+    } else if (filter.filter === 'colder') {
+      this.filterCalculator.colder(imgData, filter.value);
     }
     this.addToHistoric(filter.filter + ': ' + filter.value, imgData);
     ctx.putImageData(imgData, 0, 0);
