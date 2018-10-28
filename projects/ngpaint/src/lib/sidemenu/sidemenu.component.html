@@ -1,70 +1,55 @@
 <div class="sidemenu">
   <div class="mainMenu" *ngIf="!submenu">
-    <mat-list>
-      <mat-list-item (click)="submenu = 'draw'">
-        Dessin
-      </mat-list-item>
+    <div (click)="submenu = 'draw'">
+      Dessin
+    </div>
+    <div (click)="submenu = 'filter'">
+      Filtres
+    </div>
+    <ng-container *ngIf="historic.length > 1">
+      <div (click)="reset.emit(historic[historic.length - 2])">
+        Annuler
+      </div>
       <mat-divider></mat-divider>
-      <mat-list-item (click)="submenu = 'filter'">
-        Filtres
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <ng-container *ngIf="historic.length > 1">
-        <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
-          Annuler
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </ng-container>
-      <mat-list-item (click)="reset.emit(null)">
-        Image d'origine
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item (click)="download.emit(null)">
-        Télécharger
-      </mat-list-item>
-    </mat-list>
+    </ng-container>
+    <div (click)="reset.emit(null)">
+      Image d'origine
+    </div>
+    <div (click)="download.emit(null)">
+      Télécharger
+    </div>
   </div>
   <div class="drawMenu" *ngIf="submenu === 'draw'">
-    <mat-list>
-      <mat-list-item (click)="submenu = null; draw.emit(null)">
-        &lt; Back
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item (click)="draw.emit('draw')">
-        Pinceau
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item (click)="draw.emit('square')">
-        Carré
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item (click)="draw.emit('round')">
-        Rond
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <div>Couleur: </div>
-        <input [colorPicker]="drawParam.color" [value]="drawParam.color" [style.background]="drawParam.color" [cpOutputFormat]="'hexa'"
-        (colorPickerChange)="changeDrawColor($event)" >
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <div>Taille: </div>
-        <span><input type="range" min="1" max="15" [(ngModel)]="drawParam.size" (change)="drawParamChange.emit(drawParam)">
-          {{drawParam.size}}px
-        </span>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <ng-container *ngIf="historic.length > 1">
-        <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
-          Annuler
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </ng-container>
-      <mat-list-item (click)="reset.emit(null)">
-        Image d'origine
-      </mat-list-item>
-    </mat-list>
+    <div (click)="submenu = null; draw.emit(null)">
+      &lt; Back
+    </div>
+    <div (click)="draw.emit('draw')">
+      Pinceau
+    </div>
+    <div (click)="draw.emit('square')">
+      Carré
+    </div>
+    <div (click)="draw.emit('round')">
+      Rond
+    </div>
+    <div>
+      <input [colorPicker]="drawParam.color" [value]="drawParam.color" [style.background]="drawParam.color" [cpOutputFormat]="'hexa'"
+      (colorPickerChange)="changeDrawColor($event)" >
+    </div>
+    <div>
+      <div>Taille: </div>
+      <span><input type="range" min="1" max="15" [(ngModel)]="drawParam.size" (change)="drawParamChange.emit(drawParam)">
+        {{drawParam.size}}px
+      </span>
+    </div>
+    <ng-container *ngIf="historic.length > 1">
+      <div (click)="reset.emit(historic[historic.length - 2])">
+        Annuler
+      </div>
+    </ng-container>
+    <div (click)="reset.emit(null)">
+      Image d'origine
+    </div>
   </div>
   <div class="filterMenu" *ngIf="submenu === 'filter'">
     <mat-list>
