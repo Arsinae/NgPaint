@@ -31,6 +31,15 @@ export class SidemenuComponent implements OnInit {
   ngOnInit() {
   }
 
+  menuBack() {
+    if (this.submenu.includes('/')) {
+      this.submenu.substr(0, this.submenu.indexOf('/'));
+      console.log(this.submenu);
+    } else {
+      this.submenu = null;
+    }
+  }
+
   applyFilter(filter, value) {
     this.filter.emit({filter: filter, value: value});
   }

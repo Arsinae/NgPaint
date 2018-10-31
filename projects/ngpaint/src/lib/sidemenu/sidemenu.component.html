@@ -1,10 +1,14 @@
 <div class="sidemenu">
-  <div class="mainMenu" *ngIf="!submenu">
+  <div *ngIf="submenu" (click)="submenu = null; draw.emit(null)">
+    Retour
+  </div>
+
+  <ng-container *ngIf="!submenu">
     <div (click)="submenu = 'draw'">
       Dessin
     </div>
-    <div (click)="submenu = 'filter'">
-      Filtres
+    <div (click)="submenu = 'effect'">
+      Effets
     </div>
     <ng-container *ngIf="historic.length > 1">
       <div (click)="reset.emit(historic[historic.length - 2])">
@@ -12,18 +16,13 @@
       </div>
       <mat-divider></mat-divider>
     </ng-container>
-    <div (click)="reset.emit(null)">
-      Image d'origine
-    </div>
     <div (click)="download.emit(null)">
       Télécharger
     </div>
-  </div>
-  <div class="drawMenu" *ngIf="submenu === 'draw'">
-    <div (click)="submenu = null; draw.emit(null)">
-      &lt; Back
-    </div>
-    <div (click)="draw.emit('draw')">
+  </ng-container>
+
+  <ng-container *ngIf="submenu === 'draw'">
+     <div (click)="draw.emit('draw')">
       Pinceau
     </div>
     <div (click)="draw.emit('square')">
@@ -42,130 +41,113 @@
         {{drawParam.size}}px
       </span>
     </div>
-    <ng-container *ngIf="historic.length > 1">
-      <div (click)="reset.emit(historic[historic.length - 2])">
-        Annuler
-      </div>
-    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="submenu === 'effect'">
+    <div (click)="submenu = submenu + '/hsl'">
+      Luminosité & Contraste
+    </div>
+
+    <div (click)="submenu = submenu + '/filters'">
+      Filtres
+    </div>
+
+    <div (click)="submenu = submenu + '/emphasing'">
+      Souligner une couleur
+    </div>
+
+    <div (click)="submenu = submenu + '/splash'">
+      Splash
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="submenu === 'effect/hsl'">
+    <div class="itemListDisplay">
+      <span>Luminosité</span>
+      <span><input type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
+      <button (click)="applyFilter('brightness', brightness)">Valider</button>
+    </div>
+    <div class="itemListDisplay">
+      <span>Contraste</span>
+      <span><input type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
+      <button (click)="applyFilter('contrast', contrast)">Valider</button>
+    </div>
+    <div class="itemListDisplay">
+      <span>Saturation</span>
+      <span><input type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
+      <button (click)="applyFilter('saturation', saturation)">Valider</button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="submenu === 'effect/filters'">
+    <div (click)="applyFilter('invert', null)">
+      Négatif
+    </div>
+    <div (click)="applyFilter('grayscale', null)">
+      Grayscale
+    </div>
+    <div (click)="applyFilter('sepia', null)">
+      Sepia
+    </div>
+    <div (click)="applyFilter('candy', null)">
+      Candy
+    </div>
+    <div (click)="applyFilter('rainbow', null)">
+      Arc-en-ciel
+    </div>
+    <div (click)="applyFilter('gaussian', null)">
+      Gaussien
+    </div>
+    <div (click)="applyFilter('sharpen', null)">
+      Sharpen
+    </div>
+    <div (click)="applyFilter('vignetting', 0.5)">
+      Vignette
+    </div>
+    <div (click)="applyFilter('warmer', 15)">
+      Réchauffer
+    </div>
+    <div (click)="applyFilter('colder', 15)">
+      Refroidir
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="submenu === 'effect/emphasing'">
+    <mat-radio-group [(ngModel)]="emphasing.color" class="radioFlex">
+      <mat-radio-button value="red">Rouge</mat-radio-button>
+      <mat-radio-button value="green">Vert</mat-radio-button>
+      <mat-radio-button value="blue">Bleu</mat-radio-button>
+    </mat-radio-group>
+    <div class="itemListDisplay">
+          <div>
+            <span>Valeur</span>
+            <input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}
+          </div>
+    </div>
+    <button (click)="applyFilter('emphasing', emphasing)">Valider</button>
+  </ng-container>
+
+  <ng-container *ngIf="submenu === 'effect/splash'">
+    <div>
+      <input [(colorPicker)]="splash.color" [value]="splash.color" [style.background]="splash.color" [cpOutputFormat]="'hexa'">
+    </div>
+    <div>
+      <span>
+        <input type="range" min="10" max="100" [(ngModel)]="splash.dist"> {{splash.dist}}
+      </span>
+    </div>
+    <div>
+      <button (click)="applyFilter('splash', splash)">Valider</button>
+    </div>
+  </ng-container>
+
+  <div *ngIf="historic.length > 1">
+    <div (click)="reset.emit(historic[historic.length - 2])">
+      Annuler
+    </div>
     <div (click)="reset.emit(null)">
       Image d'origine
     </div>
-  </div>
-  <div class="filterMenu" *ngIf="submenu === 'filter'">
-    <mat-list>
-      <mat-list-item (click)="submenu = null">
-        &lt; Back
-      </mat-list-item>
-    </mat-list>
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          Luminosité & Contraste
-        </mat-expansion-panel-header>
-        <div class="itemListDisplay">
-          <span>Luminosité</span>
-          <span><input type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
-          <button (click)="applyFilter('brightness', brightness)">Valider</button>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="itemListDisplay">
-          <span>Contraste</span>
-          <span><input type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
-          <button (click)="applyFilter('contrast', contrast)">Valider</button>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="itemListDisplay">
-          <span>Saturation</span>
-          <span><input type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
-          <button (click)="applyFilter('saturation', saturation)">Valider</button>
-        </div>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          Filtres
-        </mat-expansion-panel-header>
-        <mat-list class="filterList">
-          <mat-list-item (click)="applyFilter('invert', null)">
-            Négatif
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('grayscale', null)">
-            Grayscale
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('sepia', null)">
-            Sepia
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('candy', null)">
-            Candy
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('rainbow', null)">
-            Arc-en-ciel
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('gaussian', null)">
-            Gaussien
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('sharpen', null)">
-            Sharpen
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('vignetting', 0.5)">
-            Vignette
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('warmer', 15)">
-            Réchauffer
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item (click)="applyFilter('colder', 15)">
-            Refroidir
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          Souligner une couleur
-        </mat-expansion-panel-header>
-        <mat-radio-group [(ngModel)]="emphasing.color">
-          <mat-radio-button value="red">Rouge</mat-radio-button>
-          <mat-radio-button value="green">Vert</mat-radio-button>
-          <mat-radio-button value="blue">Bleu</mat-radio-button>
-        </mat-radio-group>
-        <div class="itemListDisplay">
-          <span>
-            <input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">
-            {{emphasing.intensity}}
-          </span>
-          <button (click)="applyFilter('emphasing', emphasing)">Valider</button>
-        </div>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          Splash
-        </mat-expansion-panel-header>
-        <div class="itemListDisplay">
-          <input [(colorPicker)]="splash.color" [value]="splash.color" [style.background]="splash.color" [cpOutputFormat]="'hexa'">
-          <span>
-            <input type="range" min="10" max="100" [(ngModel)]="splash.dist"> {{splash.dist}}
-          </span>
-          <button (click)="applyFilter('splash', splash)">Valider</button>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <mat-list>
-      <ng-container *ngIf="historic.length > 1">
-        <mat-list-item (click)="reset.emit(historic[historic.length - 2])">
-          Annuler
-        </mat-list-item>
-      <mat-divider></mat-divider>
-      </ng-container>
-      <mat-list-item (click)="reset.emit()">
-        Image d'origine
-      </mat-list-item>
-    </mat-list>
   </div>
 </div>
