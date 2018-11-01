@@ -33,8 +33,7 @@ export class SidemenuComponent implements OnInit {
 
   menuBack() {
     if (this.submenu.includes('/')) {
-      this.submenu.substr(0, this.submenu.indexOf('/'));
-      console.log(this.submenu);
+      this.submenu = this.submenu.substr(0, this.submenu.indexOf('/'));
     } else {
       this.submenu = null;
     }

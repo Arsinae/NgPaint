@@ -1,5 +1,5 @@
 <div class="sidemenu">
-  <div *ngIf="submenu" (click)="submenu = null; draw.emit(null)">
+  <div *ngIf="submenu" (click)="menuBack(); draw.emit(null)">
     Retour
   </div>
 
@@ -114,16 +114,14 @@
   </ng-container>
 
   <ng-container *ngIf="submenu === 'effect/emphasing'">
-    <mat-radio-group [(ngModel)]="emphasing.color" class="radioFlex">
+    <mat-radio-group [(ngModel)]="emphasing.color">
       <mat-radio-button value="red">Rouge</mat-radio-button>
       <mat-radio-button value="green">Vert</mat-radio-button>
       <mat-radio-button value="blue">Bleu</mat-radio-button>
     </mat-radio-group>
-    <div class="itemListDisplay">
-          <div>
-            <span>Valeur</span>
-            <input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}
-          </div>
+    <div>
+      <span>Valeur</span>
+      <span><input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}</span>
     </div>
     <button (click)="applyFilter('emphasing', emphasing)">Valider</button>
   </ng-container>
