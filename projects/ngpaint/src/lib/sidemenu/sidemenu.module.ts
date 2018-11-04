@@ -5,6 +5,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatExpansionModule, MatListModule, MatRadioModule, MatSliderModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ColorPickerModule} from 'ngx-color-picker';
+import {NgpaintImageDirective} from '../image/ngpaint-image.directive';
+import {MenuDirective} from './menu.directive';
+import {MenuElementDirective} from './menu-element.directive';
 
 @NgModule({
   imports: [
@@ -18,9 +21,11 @@ import {ColorPickerModule} from 'ngx-color-picker';
     MatRadioModule,
     ColorPickerModule
   ],
-  declarations: [SidemenuComponent],
+  declarations: [SidemenuComponent, MenuDirective, MenuElementDirective],
   exports: [
-    SidemenuComponent
+    SidemenuComponent,
+    MenuDirective,
+    MenuElementDirective
   ]
 })
 export class SidemenuModule { }

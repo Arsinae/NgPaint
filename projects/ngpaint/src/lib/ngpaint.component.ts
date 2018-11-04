@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {NgpaintImageDirective} from './image/ngpaint-image.directive';
 import {FilterService} from './image/filter.service';
 import {PixelDrawingService} from './image/pixel-drawing.service';
+import {MenuDirective} from './sidemenu/menu.directive';
 
 @Component({
   selector: 'ngp-ngpaint',
@@ -11,6 +12,7 @@ import {PixelDrawingService} from './image/pixel-drawing.service';
 export class NgpaintComponent implements OnInit {
 
   @Input() image: NgpaintImageDirective = new NgpaintImageDirective();
+  @Input() menu: MenuDirective = new MenuDirective();
 
   @Output() dataUrl: EventEmitter<any> = new EventEmitter();
 

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgpaintImageDirective} from '../image/ngpaint-image.directive';
+import {MenuDirective} from './menu.directive';
 
 @Component({
   selector: 'ngp-sidemenu',
@@ -11,6 +12,7 @@ export class SidemenuComponent implements OnInit {
   @Input() image: NgpaintImageDirective;
   @Input() historic: Array<{effect: string, data}>;
   @Input() drawParam: {color: string, size: number};
+  @Input() menu: MenuDirective = new MenuDirective();
 
   @Output() reset: EventEmitter<any> = new EventEmitter();
   @Output() download: EventEmitter<any> = new EventEmitter();
@@ -18,7 +20,7 @@ export class SidemenuComponent implements OnInit {
   @Output() drawParamChange: EventEmitter<any> = new EventEmitter();
   @Output() filter: EventEmitter<any> = new EventEmitter();
 
-  submenu = null;
+  submenu = '';
 
   brightness = 0;
   contrast = 0;
@@ -32,11 +34,7 @@ export class SidemenuComponent implements OnInit {
   }
 
   menuBack() {
-    if (this.submenu.includes('/')) {
-      this.submenu = this.submenu.substr(0, this.submenu.indexOf('/'));
-    } else {
-      this.submenu = null;
-    }
+    this.submenu = this.submenu.substr(0, this.submenu.lastIndexOf('/'));
   }
 
   applyFilter(filter, value) {

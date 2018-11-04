@@ -3,141 +3,143 @@
     Retour
   </div>
 
-  <ng-container *ngIf="!submenu">
-    <div (click)="submenu = 'draw'">
-      Dessin
-    </div>
-    <div (click)="submenu = 'effect'">
-      Effets
-    </div>
-    <ng-container *ngIf="historic.length > 1">
-      <div (click)="reset.emit(historic[historic.length - 2])">
-        Annuler
-      </div>
-      <mat-divider></mat-divider>
+  <ng-container *ngFor="let menuLink of menu.menu">
+    <ng-container *ngIf="submenu === menuLink.submenu">
+      <ng-container *ngIf="menuLink.effect">
+        <div *ngIf="menuLink.effect === 'download'" (click)="download.emit(null)">
+          {{menuLink.title}}
+        </div>
+
+        <!-- Draw Input -->
+
+        <div *ngIf="menuLink.effect === 'pen'" (click)="draw.emit('draw')">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'square'" (click)="draw.emit('square')">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'round'" (click)="draw.emit('round')">
+          {{menuLink}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'colorPicker'">
+          <input [colorPicker]="drawParam.color" [value]="drawParam.color" [style.background]="drawParam.color" [cpOutputFormat]="'hexa'"
+                 (colorPickerChange)="changeDrawColor($event)" >
+        </div>
+
+        <div *ngIf="menuLink.effect === 'sizeSlider'">
+          <div>{{menuLink.title}}: </div>
+          <span><input type="range" min="1" max="15" [(ngModel)]="drawParam.size" (change)="drawParamChange.emit(drawParam)">
+                {{drawParam.size}}px
+              </span>
+        </div>
+
+        <!-- HSL -->
+
+        <div *ngIf="menuLink.effect === 'brightness'" class="itemListDisplay">
+          <span>{{menuLink.title}}</span>
+          <span><input type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
+          <button (click)="applyFilter('brightness', brightness)">{{menu.validateText}}</button>
+        </div>
+
+        <div *ngIf="menuLink.effect === 'contrast'" class="itemListDisplay">
+          <span>{{menuLink.title}}</span>
+          <span><input type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
+          <button (click)="applyFilter('contrast', contrast)">{{menu.validateText}}</button>
+        </div>
+
+        <div *ngIf="menuLink.effect === 'saturation'" class="itemListDisplay">
+          <span>{{menuLink.title}}</span>
+          <span><input type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
+          <button (click)="applyFilter('saturation', saturation)">{{menu.validateText}}</button>
+        </div>
+
+        <!-- Filters -->
+
+        <div *ngIf="menuLink.effect === 'invert'" (click)="applyFilter('invert', null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'grayscale'" (click)="applyFilter('grayscale', null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'sepia'" (click)="applyFilter('sepia', null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'candy'" (click)="applyFilter('candy', null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'rainbow'" (click)="applyFilter('rainbow', null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'gaussian'" (click)="applyFilter('gaussian', null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'sharpen'" (click)="applyFilter('sharpen', null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'vignette'" (click)="applyFilter('vignetting', 0.5)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'warmer'" (click)="applyFilter('warmer', 15)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'colder'" (click)="applyFilter('colder', 15)">
+          {{menuLink.title}}
+        </div>
+
+        <!-- Emphasing -->
+        <ng-container *ngIf="menuLink.effect === 'emphasing'">
+          <div>
+            <mat-radio-group [(ngModel)]="emphasing.color">
+              <mat-radio-button value="red">{{menuLink.title.split(';')[0]}}</mat-radio-button>
+              <mat-radio-button value="green">{{menuLink.title.split(';')[1]}}</mat-radio-button>
+              <mat-radio-button value="blue">{{menuLink.title.split(';')[2]}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <span>{{menuLink.title.split(';')[3]}}</span>
+            <span><input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}</span>
+          </div>
+          <div>
+            <button (click)="applyFilter('emphasing', emphasing)">{{menu.validateText}}</button>
+          </div>
+        </ng-container>
+
+        <!-- Splash -->
+        <ng-container *ngIf="menuLink.effect === 'splash'">
+          <div>
+            <input [(colorPicker)]="splash.color" [value]="splash.color" [style.background]="splash.color" [cpOutputFormat]="'hexa'">
+          </div>
+          <div>
+            <span>
+              <input type="range" min="10" max="100" [(ngModel)]="splash.dist"> {{splash.dist}}
+            </span>
+          </div>
+          <div>
+            <button (click)="applyFilter('splash', splash)">{{menu.validateText}}</button>
+          </div>
+        </ng-container>
+
+      </ng-container>
+
+      <ng-container *ngIf="menuLink.redirect">
+        <div (click)="submenu = submenu + '/' + menuLink.redirect">
+          {{menuLink.title}}
+        </div>
+      </ng-container>
+
     </ng-container>
-    <div (click)="download.emit(null)">
-      Télécharger
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="submenu === 'draw'">
-     <div (click)="draw.emit('draw')">
-      Pinceau
-    </div>
-    <div (click)="draw.emit('square')">
-      Carré
-    </div>
-    <div (click)="draw.emit('round')">
-      Rond
-    </div>
-    <div>
-      <input [colorPicker]="drawParam.color" [value]="drawParam.color" [style.background]="drawParam.color" [cpOutputFormat]="'hexa'"
-      (colorPickerChange)="changeDrawColor($event)" >
-    </div>
-    <div>
-      <div>Taille: </div>
-      <span><input type="range" min="1" max="15" [(ngModel)]="drawParam.size" (change)="drawParamChange.emit(drawParam)">
-        {{drawParam.size}}px
-      </span>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="submenu === 'effect'">
-    <div (click)="submenu = submenu + '/hsl'">
-      Luminosité & Contraste
-    </div>
-
-    <div (click)="submenu = submenu + '/filters'">
-      Filtres
-    </div>
-
-    <div (click)="submenu = submenu + '/emphasing'">
-      Souligner une couleur
-    </div>
-
-    <div (click)="submenu = submenu + '/splash'">
-      Splash
-    </div>
-
-  </ng-container>
-
-  <ng-container *ngIf="submenu === 'effect/hsl'">
-    <div class="itemListDisplay">
-      <span>Luminosité</span>
-      <span><input type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
-      <button (click)="applyFilter('brightness', brightness)">Valider</button>
-    </div>
-    <div class="itemListDisplay">
-      <span>Contraste</span>
-      <span><input type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
-      <button (click)="applyFilter('contrast', contrast)">Valider</button>
-    </div>
-    <div class="itemListDisplay">
-      <span>Saturation</span>
-      <span><input type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
-      <button (click)="applyFilter('saturation', saturation)">Valider</button>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="submenu === 'effect/filters'">
-    <div (click)="applyFilter('invert', null)">
-      Négatif
-    </div>
-    <div (click)="applyFilter('grayscale', null)">
-      Grayscale
-    </div>
-    <div (click)="applyFilter('sepia', null)">
-      Sepia
-    </div>
-    <div (click)="applyFilter('candy', null)">
-      Candy
-    </div>
-    <div (click)="applyFilter('rainbow', null)">
-      Arc-en-ciel
-    </div>
-    <div (click)="applyFilter('gaussian', null)">
-      Gaussien
-    </div>
-    <div (click)="applyFilter('sharpen', null)">
-      Sharpen
-    </div>
-    <div (click)="applyFilter('vignetting', 0.5)">
-      Vignette
-    </div>
-    <div (click)="applyFilter('warmer', 15)">
-      Réchauffer
-    </div>
-    <div (click)="applyFilter('colder', 15)">
-      Refroidir
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="submenu === 'effect/emphasing'">
-    <mat-radio-group [(ngModel)]="emphasing.color">
-      <mat-radio-button value="red">Rouge</mat-radio-button>
-      <mat-radio-button value="green">Vert</mat-radio-button>
-      <mat-radio-button value="blue">Bleu</mat-radio-button>
-    </mat-radio-group>
-    <div>
-      <span>Valeur</span>
-      <span><input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}</span>
-    </div>
-    <button (click)="applyFilter('emphasing', emphasing)">Valider</button>
-  </ng-container>
-
-  <ng-container *ngIf="submenu === 'effect/splash'">
-    <div>
-      <input [(colorPicker)]="splash.color" [value]="splash.color" [style.background]="splash.color" [cpOutputFormat]="'hexa'">
-    </div>
-    <div>
-      <span>
-        <input type="range" min="10" max="100" [(ngModel)]="splash.dist"> {{splash.dist}}
-      </span>
-    </div>
-    <div>
-      <button (click)="applyFilter('splash', splash)">Valider</button>
-    </div>
   </ng-container>
 
   <div *ngIf="historic.length > 1">

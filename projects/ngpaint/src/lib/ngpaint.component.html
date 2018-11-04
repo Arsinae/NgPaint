@@ -7,7 +7,7 @@
 
 <div class="paintContainer">
   <div *ngIf="image.dataUri" id="menuContainer">
-    <ngp-sidemenu [image]="image" [historic]="historic" [(drawParam)]="drawParam"
+    <ngp-sidemenu [image]="image" [historic]="historic" [(drawParam)]="drawParam" [menu]="menu"
                   (filter)="applyFilter($event)" (reset)="resetPicture($event)" (draw)="getDrawing($event)"
                   (download)="downloadPicture()">
     </ngp-sidemenu>
