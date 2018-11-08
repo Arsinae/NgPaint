@@ -30,3 +30,12 @@
 mat-radio-button {
   margin: 4px;
 }
+
+.iconMenu {
+  flex-direction: row !important;
+  flex-wrap: wrap;
+
+  span {
+    padding: 0 4px;
+  }
+}

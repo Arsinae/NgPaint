@@ -13,7 +13,7 @@
         <!-- Draw Input -->
 
         <div *ngIf="menuLink.effect === 'pen'" (click)="draw.emit('draw')">
-          {{menuLink.title}}
+          {{menuLink.title}} <i class="fas fa-pen"></i>
         </div>
 
         <div *ngIf="menuLink.effect === 'square'" (click)="draw.emit('square')">
@@ -30,6 +30,14 @@
 
         <div *ngIf="menuLink.effect === 'circle'" (click)="draw.emit('circle')">
           {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'basicDrawForm'" class="iconMenu">
+          <span (click)="draw.emit('draw')"><i class="fas fa-pen"></i></span>
+          <span (click)="draw.emit('square')"><i class="fas fa-square"></i></span>
+          <span (click)="draw.emit('emptySquare')"><i class="far fa-square"></i></span>
+          <span (click)="draw.emit('round')"><i class="fas fa-circle"></i></span>
+          <span (click)="draw.emit('circle')"><i class="far fa-circle"></i></span>
         </div>
 
         <div *ngIf="menuLink.effect === 'colorPicker'">
