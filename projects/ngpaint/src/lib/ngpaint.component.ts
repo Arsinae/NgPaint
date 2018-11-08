@@ -110,13 +110,36 @@ export class NgpaintComponent implements OnInit {
   resetPicture(ev) {
     if (!ev) {
       this.image.dataUri = this.image.dataUriBase;
-      this.historic = [];
+      for (let i = this.historic.length - 1; i > 0 && this.historic[i].effect !== 'effect'; i--) {
+        this.historic.splice(-1, 1);
+      }
       this.loadInCanvas();
     } else {
+      if (ev.data.width !== this.image.size.x || ev.data.height !== this.image.size.y) {
+        this.resetOldPicture(ev);
+      }
       const ctx = this.canvas.nativeElement.getContext('2d');
       ctx.putImageData(ev.data, 0, 0);
       this.historic.splice(-1, 1);
     }
+  }
+
+  resetOldPicture(ev) {
+    this.image.size.x = ev.data.width;
+    this.image.size.y = ev.data.height;
+    this.canvas.nativeElement.width = this.image.size.x;
+    this.canvas.nativeElement.height = this.image.size.y;
+    let i = this.historic.length - 2;
+    while (this.historic[i].effect !== 'original' && i > 0) {
+      i--;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = this.image.size.x;
+    canvas.height = this.image.size.y;
+    const ctx = canvas.getContext('2d');
+    ctx.putImageData(this.historic[i].data, 0, 0);
+    this.image.dataUriBase = canvas.toDataURL();
+    console.log(this.historic[i], this.image.dataUriBase);
   }
 
   downloadPicture() {

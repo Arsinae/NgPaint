@@ -9,7 +9,7 @@
   <div *ngIf="image.dataUri" id="menuContainer">
     <ngp-sidemenu [image]="image" [historic]="historic" [(drawParam)]="drawParam" [menu]="menu"
                   (filter)="applyFilter($event)" (reset)="resetPicture($event)" (draw)="getDrawing($event)"
-                  (download)="downloadPicture()">
+                  (download)="downloadPicture()" (changePicture)="importImage($event)">
     </ngp-sidemenu>
   </div>
 

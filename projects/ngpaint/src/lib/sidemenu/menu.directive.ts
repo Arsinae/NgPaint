@@ -8,13 +8,15 @@ export class MenuDirective {
 
   public color = 'white';
   public validateText = 'Valider';
-  public resetText = 'Image d\'origine';
   public cancelText = 'Annuler';
 
   public menu: Array<MenuElementDirective> = [
     {title: 'Dessin', submenu: '', redirect: 'draw', effect: null},
     {title: 'Effet', submenu: '', redirect: 'effect', effect: null},
-    {title: 'Télécharger', submenu: '', redirect: null, effect: 'download'},
+    {title: 'Gestion', submenu: '', redirect: 'manage', effect: null},
+    {title: 'Image d\'origine', submenu: '/manage', redirect: null, effect: 'reset'},
+    {title: 'Changer d\'image', submenu: '/manage', redirect: null, effect: 'changePicture'},
+    {title: 'Télécharger', submenu: '/manage', redirect: null, effect: 'download'},
     {title: 'Forme Basique', submenu: '/draw', redirect: null, effect: 'basicDrawForm'},
     {title: 'Couleur', submenu: '/draw', redirect: null, effect: 'colorPicker'},
     {title: 'Taille', submenu: '/draw', redirect: null, effect: 'sizeSlider'},

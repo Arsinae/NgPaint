@@ -6,14 +6,28 @@
   <ng-container *ngFor="let menuLink of menu.menu">
     <ng-container *ngIf="submenu === menuLink.submenu">
       <ng-container *ngIf="menuLink.effect">
+
+        <!-- Manage Input -->
+
         <div *ngIf="menuLink.effect === 'download'" (click)="download.emit(null)">
           {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'reset'" (click)="reset.emit(null)">
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'changePicture'">
+            <label for="imageUpload" id="imageUploadLabel">
+              <span>{{menuLink.title}}</span>
+            </label>
+            <input type="file" id="imageUpload" (change)="changePicture.emit($event)">
         </div>
 
         <!-- Draw Input -->
 
         <div *ngIf="menuLink.effect === 'pen'" (click)="draw.emit('draw')">
-          {{menuLink.title}} <i class="fas fa-pen"></i>
+          {{menuLink.title}}
         </div>
 
         <div *ngIf="menuLink.effect === 'square'" (click)="draw.emit('square')">
@@ -161,9 +175,6 @@
   <div *ngIf="historic.length > 1">
     <div (click)="reset.emit(historic[historic.length - 2])">
       {{menu.cancelText}}
-    </div>
-    <div (click)="reset.emit(null)">
-      {{menu.resetText}}
     </div>
   </div>
 </div>

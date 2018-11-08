@@ -15,6 +15,7 @@ export class SidemenuComponent implements OnInit {
   @Input() menu: MenuDirective = new MenuDirective();
 
   @Output() reset: EventEmitter<any> = new EventEmitter();
+  @Output() changePicture: EventEmitter<any> = new EventEmitter();
   @Output() download: EventEmitter<any> = new EventEmitter();
   @Output() draw: EventEmitter<any> = new EventEmitter();
   @Output() drawParamChange: EventEmitter<any> = new EventEmitter();
