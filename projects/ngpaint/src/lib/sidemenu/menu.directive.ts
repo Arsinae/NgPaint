@@ -8,6 +8,8 @@ export class MenuDirective {
 
   public color = 'white';
   public validateText = 'Valider';
+  public resetText = 'Image d\'origine';
+  public cancelText = 'Annuler';
 
   public menu: Array<MenuElementDirective> = [
     {title: 'Dessin', submenu: '', redirect: 'draw', effect: null},
@@ -15,7 +17,9 @@ export class MenuDirective {
     {title: 'Télécharger', submenu: '', redirect: null, effect: 'download'},
     {title: 'Pinceau', submenu: '/draw', redirect: null, effect: 'pen'},
     {title: 'Carré', submenu: '/draw', redirect: null, effect: 'square'},
+    {title: 'Carré Vide', submenu: '/draw', redirect: null, effect: 'emptySquare'},
     {title: 'Rond', submenu: '/draw', redirect: null, effect: 'round'},
+    {title: 'Cercle', submenu: '/draw', redirect: null, effect: 'circle'},
     {title: 'Couleur', submenu: '/draw', redirect: null, effect: 'colorPicker'},
     {title: 'Taille', submenu: '/draw', redirect: null, effect: 'sizeSlider'},
     {title: 'Luminosité et Contraste', submenu: '/effect', redirect: 'hsl', effect: null},

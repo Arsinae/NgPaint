@@ -20,8 +20,16 @@
           {{menuLink.title}}
         </div>
 
+        <div *ngIf="menuLink.effect === 'emptySquare'" (click)="draw.emit('emptySquare')">
+          {{menuLink.title}}
+        </div>
+
         <div *ngIf="menuLink.effect === 'round'" (click)="draw.emit('round')">
-          {{menuLink}}
+          {{menuLink.title}}
+        </div>
+
+        <div *ngIf="menuLink.effect === 'circle'" (click)="draw.emit('circle')">
+          {{menuLink.title}}
         </div>
 
         <div *ngIf="menuLink.effect === 'colorPicker'">
@@ -144,10 +152,10 @@
 
   <div *ngIf="historic.length > 1">
     <div (click)="reset.emit(historic[historic.length - 2])">
-      Annuler
+      {{menu.cancelText}}
     </div>
     <div (click)="reset.emit(null)">
-      Image d'origine
+      {{menu.resetText}}
     </div>
   </div>
 </div>

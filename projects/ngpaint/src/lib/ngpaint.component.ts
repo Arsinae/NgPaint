@@ -151,6 +151,19 @@ export class NgpaintComponent implements OnInit {
           this.addToHistoric('draw square', imgData);
         };
       };
+    } else if (this.draw === 'emptySquare') {
+      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+        this.pixelDrawing.drawEmptySquareBase(event, this.drawingInstance.nativeElement, this.drawParam);
+        document.onmousemove = (click) => {
+          this.pixelDrawing.drawEmptySquare(click, this.drawingInstance.nativeElement);
+        };
+        document.onmouseup = (click) => {
+          this.pixelDrawing.printEmptySquare(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+          const ctx = this.canvas.nativeElement.getContext('2d');
+          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+          this.addToHistoric('draw empty square', imgData);
+        };
+      };
     } else if (this.draw === 'round') {
       this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
         this.pixelDrawing.drawRoundBase(event, this.drawingInstance.nativeElement, this.drawParam);
@@ -162,6 +175,19 @@ export class NgpaintComponent implements OnInit {
           const ctx = this.canvas.nativeElement.getContext('2d');
           const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
           this.addToHistoric('draw round', imgData);
+        };
+      };
+    } else if (this.draw === 'circle') {
+      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+        this.pixelDrawing.drawCircleBase(event, this.drawingInstance.nativeElement, this.drawParam);
+        document.onmousemove = (click) => {
+          this.pixelDrawing.drawCircle(click, this.drawingInstance.nativeElement);
+        };
+        document.onmouseup = (click) => {
+          this.pixelDrawing.printCircle(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+          const ctx = this.canvas.nativeElement.getContext('2d');
+          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+          this.addToHistoric('draw circle', imgData);
         };
       };
     }
