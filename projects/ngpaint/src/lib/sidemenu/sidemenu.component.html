@@ -54,9 +54,13 @@
           <span (click)="draw.emit('circle')"><i class="far fa-circle"></i></span>
         </div>
 
-        <div *ngIf="menuLink.effect === 'colorPicker'">
-          <input [colorPicker]="drawParam.color" [value]="drawParam.color" [style.background]="drawParam.color" [cpOutputFormat]="'hexa'"
-                 (colorPickerChange)="changeDrawColor($event)" >
+        <div *ngIf="menuLink.effect === 'colorPicker'" class="colorPickerContainer">
+          <div class="colorPicker" [colorPicker]="drawParam.color" [style.background]="drawParam.color"
+          [cpOutputFormat]="'hexa'" (colorPickerChange)="changeDrawColor($event)" (colorPickerSelect)="addColor($event)"></div>
+          <div class="presetColors">
+              <div *ngFor="let color of presetColor" (click)="changeDrawColor(color)"
+              [style.backgroundColor]="color"></div>
+            </div>
         </div>
 
         <div *ngIf="menuLink.effect === 'sizeSlider'">

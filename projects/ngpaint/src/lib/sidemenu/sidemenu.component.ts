@@ -28,6 +28,8 @@ export class SidemenuComponent implements OnInit {
   saturation = 0;
   emphasing = {color: 'red', intensity: 122};
   splash = {color: '#ff0000', dist: 40};
+  presetColor = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff',
+    '#000000', '#ffffff', '#cccccc'];
 
   constructor() { }
 
@@ -40,6 +42,13 @@ export class SidemenuComponent implements OnInit {
 
   applyFilter(filter, value) {
     this.filter.emit({filter: filter, value: value});
+  }
+
+  addColor(event) {
+    if (this.presetColor.length > 14) {
+      this.presetColor.splice(9, 1);
+    }
+    this.presetColor.push(event);
   }
 
   changeDrawColor(event) {
