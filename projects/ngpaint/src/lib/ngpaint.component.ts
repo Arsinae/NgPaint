@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, HostListener} from '@angular/core';
 import {NgpaintImageDirective} from './image/ngpaint-image.directive';
 import {FilterService} from './image/filter.service';
 import {PixelDrawingService} from './image/pixel-drawing.service';
@@ -27,6 +27,14 @@ export class NgpaintComponent implements OnInit {
   constructor(private filterCalculator: FilterService, private pixelDrawing: PixelDrawingService) { }
 
   ngOnInit() {
+  }
+
+  @HostListener('window:keydown', ['$event']) onKeyPress(event: KeyboardEvent) {
+    if ((event.ctrlKey || event.metaKey) && event.keyCode === 90) {
+      if (this.historic.length >= 2) {
+        this.resetPicture(this.historic[this.historic.length - 2]);
+      }
+    }
   }
 
   importImage(ev) {

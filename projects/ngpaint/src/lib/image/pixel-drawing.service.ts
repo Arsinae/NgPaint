@@ -232,7 +232,7 @@ export class PixelDrawingService {
     document.onmouseup = null;
   }
 
-  calcDrawArrow(origin, pos, ctx ) {
+  calcDrawArrow(origin, pos, ctx) {
     const arrowLen = Math.max(Math.sqrt(Math.pow(pos.x - origin.x, 2) + Math.pow(pos.y - origin.y, 2)) * 0.15, 15);
     const angle = Math.atan2(pos.y - origin.y, pos.x - origin.x);
     ctx.lineCap = 'round';
