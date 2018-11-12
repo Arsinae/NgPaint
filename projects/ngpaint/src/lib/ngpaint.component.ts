@@ -149,71 +149,107 @@ export class NgpaintComponent implements OnInit {
   getDrawing(ev) {
     this.draw = ev;
     if (this.draw === 'draw') {
-      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
-        this.pixelDrawing.drawPixel(event, this.drawingInstance.nativeElement, this.drawParam);
-        document.onmousemove = (click) => {
-          this.pixelDrawing.drawLine(click, this.drawingInstance.nativeElement);
-        };
-        document.onmouseup = () => {
-          this.pixelDrawing.printDrawing(this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
-          const ctx = this.canvas.nativeElement.getContext('2d');
-          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
-          this.addToHistoric('draw pixel', imgData);
-        };
-      };
+      this.drawingPixel();
     } else if (this.draw === 'square') {
-      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
-        this.pixelDrawing.drawSquareBase(event, this.drawingInstance.nativeElement, this.drawParam);
-        document.onmousemove = (click) => {
-          this.pixelDrawing.drawSquare(click, this.drawingInstance.nativeElement);
-        };
-        document.onmouseup = (click) => {
-          this.pixelDrawing.printSquare(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
-          const ctx = this.canvas.nativeElement.getContext('2d');
-          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
-          this.addToHistoric('draw square', imgData);
-        };
-      };
+      this.drawingSquare();
     } else if (this.draw === 'emptySquare') {
-      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
-        this.pixelDrawing.drawEmptySquareBase(event, this.drawingInstance.nativeElement, this.drawParam);
-        document.onmousemove = (click) => {
-          this.pixelDrawing.drawEmptySquare(click, this.drawingInstance.nativeElement);
-        };
-        document.onmouseup = (click) => {
-          this.pixelDrawing.printEmptySquare(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
-          const ctx = this.canvas.nativeElement.getContext('2d');
-          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
-          this.addToHistoric('draw empty square', imgData);
-        };
-      };
+      this.drawingEmptySquare();
     } else if (this.draw === 'round') {
-      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
-        this.pixelDrawing.drawRoundBase(event, this.drawingInstance.nativeElement, this.drawParam);
-        document.onmousemove = (click) => {
-          this.pixelDrawing.drawRound(click, this.drawingInstance.nativeElement);
-        };
-        document.onmouseup = (click) => {
-          this.pixelDrawing.printRound(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
-          const ctx = this.canvas.nativeElement.getContext('2d');
-          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
-          this.addToHistoric('draw round', imgData);
-        };
-      };
+      this.drawingRound();
     } else if (this.draw === 'circle') {
-      this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
-        this.pixelDrawing.drawCircleBase(event, this.drawingInstance.nativeElement, this.drawParam);
-        document.onmousemove = (click) => {
-          this.pixelDrawing.drawCircle(click, this.drawingInstance.nativeElement);
-        };
-        document.onmouseup = (click) => {
-          this.pixelDrawing.printCircle(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
-          const ctx = this.canvas.nativeElement.getContext('2d');
-          const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
-          this.addToHistoric('draw circle', imgData);
-        };
-      };
+      this.drawingCircle();
+    } else if (this.draw === 'arrow') {
+      this.drawingArrow();
     }
   }
 
+  drawingPixel() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawPixel(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawLine(click, this.drawingInstance.nativeElement);
+      };
+      document.onmouseup = () => {
+        this.pixelDrawing.printDrawing(this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw pixel', imgData);
+      };
+    };
+  }
+
+  drawingSquare() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawSquareBase(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawSquare(click, this.drawingInstance.nativeElement);
+      };
+      document.onmouseup = (click) => {
+        this.pixelDrawing.printSquare(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw square', imgData);
+      };
+    };
+  }
+
+  drawingEmptySquare() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawEmptySquareBase(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawEmptySquare(click, this.drawingInstance.nativeElement);
+      };
+      document.onmouseup = (click) => {
+        this.pixelDrawing.printEmptySquare(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw empty square', imgData);
+      };
+    };
+  }
+
+  drawingRound() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawRoundBase(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawRound(click, this.drawingInstance.nativeElement);
+      };
+      document.onmouseup = (click) => {
+        this.pixelDrawing.printRound(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw round', imgData);
+      };
+    };
+  }
+
+  drawingCircle() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawCircleBase(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawCircle(click, this.drawingInstance.nativeElement);
+      };
+      document.onmouseup = (click) => {
+        this.pixelDrawing.printCircle(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw circle', imgData);
+      };
+    };
+  }
+
+  drawingArrow() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawArrowBase(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawArrow(click, this.drawingInstance.nativeElement);
+      };
+      document.onmouseup = (click) => {
+        this.pixelDrawing.printArrow(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw arrow', imgData);
+      };
+    };
+  }
 }

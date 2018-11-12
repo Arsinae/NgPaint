@@ -198,4 +198,51 @@ export class PixelDrawingService {
     document.onmousemove = null;
     document.onmouseup = null;
   }
+
+  drawArrowBase(click, canvas, param) {
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    ctx.strokeStyle = param.color;
+    ctx.lineWidth = param.size;
+    ctx.beginPath();
+    ctx.rect(posX, posY, 1, 1);
+    ctx.stroke();
+    this.pixelDraw.push({x: posX, y: posY});
+  }
+
+  drawArrow(click, canvas) {
+    const ctx = canvas.getContext('2d');
+    const pos = {x: click.clientX - canvas.parentNode.parentNode.offsetLeft,
+      y: click.clientY - canvas.parentNode.parentNode.offsetTop};
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.calcDrawArrow(this.pixelDraw[0], pos, ctx);
+  }
+
+  printArrow(click, canvas, drawingInstance, param) {
+    drawingInstance.getContext('2d').clearRect(0, 0, drawingInstance.width, drawingInstance.height);
+    const ctx = canvas.getContext('2d');
+    const pos = {x: click.clientX - canvas.parentNode.parentNode.offsetLeft,
+      y: click.clientY - canvas.parentNode.parentNode.offsetTop};
+    ctx.strokeStyle = param.color;
+    ctx.lineWidth = param.size;
+    this.calcDrawArrow(this.pixelDraw[0], pos, ctx);
+    this.pixelDraw = [];
+    document.onmousemove = null;
+    document.onmouseup = null;
+  }
+
+  calcDrawArrow(origin, pos, ctx ) {
+    const arrowLen = Math.max(Math.sqrt(Math.pow(pos.x - origin.x, 2) + Math.pow(pos.y - origin.y, 2)) * 0.15, 15);
+    const angle = Math.atan2(pos.y - origin.y, pos.x - origin.x);
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(origin.x, origin.y);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x - arrowLen * Math.cos(angle + Math.PI / 6), pos.y - arrowLen * Math.sin(angle + Math.PI / 6));
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x - arrowLen * Math.cos(angle - Math.PI / 6), pos.y - arrowLen * Math.sin(angle - Math.PI / 6));
+    ctx.stroke();
+  }
 }

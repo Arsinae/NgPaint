@@ -52,6 +52,7 @@
           <span (click)="draw.emit('emptySquare')"><i class="far fa-square"></i></span>
           <span (click)="draw.emit('round')"><i class="fas fa-circle"></i></span>
           <span (click)="draw.emit('circle')"><i class="far fa-circle"></i></span>
+          <span (click)="draw.emit('arrow')"><i class="fas fa-arrow-up"></i></span>
         </div>
 
         <div *ngIf="menuLink.effect === 'colorPicker'" class="colorPickerContainer">
