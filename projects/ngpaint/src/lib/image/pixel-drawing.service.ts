@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { StylingIndex } from '@angular/core/src/render3/styling';
 
 @Injectable({
   providedIn: 'root'
@@ -199,7 +200,7 @@ export class PixelDrawingService {
     document.onmouseup = null;
   }
 
-  drawArrowBase(click, canvas, param) {
+  drawFigureBase(click, canvas, param) {
     const ctx = canvas.getContext('2d');
     const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
     const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
@@ -243,6 +244,50 @@ export class PixelDrawingService {
     ctx.lineTo(pos.x - arrowLen * Math.cos(angle + Math.PI / 6), pos.y - arrowLen * Math.sin(angle + Math.PI / 6));
     ctx.moveTo(pos.x, pos.y);
     ctx.lineTo(pos.x - arrowLen * Math.cos(angle - Math.PI / 6), pos.y - arrowLen * Math.sin(angle - Math.PI / 6));
+    ctx.stroke();
+  }
+
+  drawStar(click, canvas) {
+    const ctx = canvas.getContext('2d');
+    const pos = {x: click.clientX - canvas.parentNode.parentNode.offsetLeft,
+      y: click.clientY - canvas.parentNode.parentNode.offsetTop};
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.calcDrawStar(this.pixelDraw[0], pos, ctx, 5);
+  }
+
+  printStar(click, canvas, drawingInstance, param) {
+    drawingInstance.getContext('2d').clearRect(0, 0, drawingInstance.width, drawingInstance.height);
+    const ctx = canvas.getContext('2d');
+    const pos = {x: click.clientX - canvas.parentNode.parentNode.offsetLeft,
+      y: click.clientY - canvas.parentNode.parentNode.offsetTop};
+    ctx.strokeStyle = param.color;
+    ctx.lineWidth = param.size;
+    this.calcDrawStar(this.pixelDraw[0], pos, ctx, 5);
+    this.pixelDraw = [];
+    document.onmousemove = null;
+    document.onmouseup = null;
+  }
+
+  calcDrawStar(origin, pos, ctx, spikes) {
+    const length = Math.sqrt(Math.pow(pos.x - origin.x, 2) + Math.pow(pos.y - origin.y, 2));
+    let x = 0, y = 0;
+    let rotate = Math.PI / 2 * 3;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(origin.x, origin.y - length);
+    for (let i = 0; i < spikes; i++) {
+      x = origin.x + Math.cos(rotate) * length;
+      y = origin.y + Math.sin(rotate) * length;
+      ctx.lineTo(x, y);
+      rotate += (Math.PI / spikes);
+
+      x = origin.x + Math.cos(rotate) * (length / 2);
+      y = origin.y + Math.sin(rotate) * (length / 2);
+      ctx.lineTo(x, y);
+      rotate += (Math.PI / spikes);
+    }
+    ctx.lineTo(origin.x, origin.y - length);
+    ctx.closePath();
     ctx.stroke();
   }
 }

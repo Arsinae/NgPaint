@@ -168,6 +168,8 @@ export class NgpaintComponent implements OnInit {
       this.drawingCircle();
     } else if (this.draw === 'arrow') {
       this.drawingArrow();
+    } else if (this.draw === 'star') {
+      this.drawingStar();
     }
   }
 
@@ -248,7 +250,7 @@ export class NgpaintComponent implements OnInit {
 
   drawingArrow() {
     this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
-      this.pixelDrawing.drawArrowBase(event, this.drawingInstance.nativeElement, this.drawParam);
+      this.pixelDrawing.drawFigureBase(event, this.drawingInstance.nativeElement, this.drawParam);
       document.onmousemove = (click) => {
         this.pixelDrawing.drawArrow(click, this.drawingInstance.nativeElement);
       };
@@ -257,6 +259,21 @@ export class NgpaintComponent implements OnInit {
         const ctx = this.canvas.nativeElement.getContext('2d');
         const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
         this.addToHistoric('draw arrow', imgData);
+      };
+    };
+  }
+
+  drawingStar() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawFigureBase(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawStar(click, this.drawingInstance.nativeElement);
+      };
+      document.onmouseup = (click) => {
+        this.pixelDrawing.printStar(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw star', imgData);
       };
     };
   }
