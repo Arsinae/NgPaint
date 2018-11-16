@@ -168,8 +168,9 @@ export class NgpaintComponent implements OnInit {
       this.drawingCircle();
     } else if (this.draw === 'arrow') {
       this.drawingArrow();
-    } else if (this.draw === 'star') {
-      this.drawingStar();
+    } else if (this.draw.match('star [0-9]+')) {
+      const spikes = parseInt(this.draw.split(' ')[1], 10);
+      this.drawingStar(spikes);
     }
   }
 
@@ -263,14 +264,14 @@ export class NgpaintComponent implements OnInit {
     };
   }
 
-  drawingStar() {
+  drawingStar(spikes) {
     this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
       this.pixelDrawing.drawFigureBase(event, this.drawingInstance.nativeElement, this.drawParam);
       document.onmousemove = (click) => {
-        this.pixelDrawing.drawStar(click, this.drawingInstance.nativeElement);
+        this.pixelDrawing.drawStar(click, this.drawingInstance.nativeElement, spikes);
       };
       document.onmouseup = (click) => {
-        this.pixelDrawing.printStar(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        this.pixelDrawing.printStar(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam, spikes);
         const ctx = this.canvas.nativeElement.getContext('2d');
         const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
         this.addToHistoric('draw star', imgData);

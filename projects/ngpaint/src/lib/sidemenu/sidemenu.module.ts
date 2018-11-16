@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidemenuComponent } from './sidemenu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatExpansionModule, MatListModule, MatRadioModule, MatSliderModule} from '@angular/material';
+import {MatExpansionModule, MatListModule, MatRadioModule, MatSliderModule, MatMenuModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {NgpaintImageDirective} from '../image/ngpaint-image.directive';
@@ -19,6 +19,7 @@ import {MenuElementDirective} from './menu-element.directive';
     MatListModule,
     MatSliderModule,
     MatRadioModule,
+    MatMenuModule,
     ColorPickerModule
   ],
   declarations: [SidemenuComponent, MenuDirective, MenuElementDirective],

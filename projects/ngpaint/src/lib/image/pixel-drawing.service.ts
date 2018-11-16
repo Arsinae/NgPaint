@@ -247,22 +247,22 @@ export class PixelDrawingService {
     ctx.stroke();
   }
 
-  drawStar(click, canvas) {
+  drawStar(click, canvas, spikes) {
     const ctx = canvas.getContext('2d');
     const pos = {x: click.clientX - canvas.parentNode.parentNode.offsetLeft,
       y: click.clientY - canvas.parentNode.parentNode.offsetTop};
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    this.calcDrawStar(this.pixelDraw[0], pos, ctx, 5);
+    this.calcDrawStar(this.pixelDraw[0], pos, ctx, spikes);
   }
 
-  printStar(click, canvas, drawingInstance, param) {
+  printStar(click, canvas, drawingInstance, param, spikes) {
     drawingInstance.getContext('2d').clearRect(0, 0, drawingInstance.width, drawingInstance.height);
     const ctx = canvas.getContext('2d');
     const pos = {x: click.clientX - canvas.parentNode.parentNode.offsetLeft,
       y: click.clientY - canvas.parentNode.parentNode.offsetTop};
     ctx.strokeStyle = param.color;
     ctx.lineWidth = param.size;
-    this.calcDrawStar(this.pixelDraw[0], pos, ctx, 5);
+    this.calcDrawStar(this.pixelDraw[0], pos, ctx, spikes);
     this.pixelDraw = [];
     document.onmousemove = null;
     document.onmouseup = null;
@@ -273,6 +273,7 @@ export class PixelDrawingService {
     let x = 0, y = 0;
     let rotate = Math.PI / 2 * 3;
     ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.beginPath();
     ctx.moveTo(origin.x, origin.y - length);
     for (let i = 0; i < spikes; i++) {

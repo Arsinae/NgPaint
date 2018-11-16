@@ -53,7 +53,15 @@
           <span (click)="draw.emit('round')"><i class="fas fa-circle"></i></span>
           <span (click)="draw.emit('circle')"><i class="far fa-circle"></i></span>
           <span (click)="draw.emit('arrow')"><i class="fas fa-arrow-up"></i></span>
-          <span (click)="draw.emit('star')"><i class="fas fa-star"></i></span>
+          <ng-container>
+            <span [matMenuTriggerFor]="starMenu"><i class="fas fa-star"></i></span>
+            <mat-menu #starMenu="matMenu">
+              <div *ngFor="let spike of spikesMenu; let last = last" class="spikeItem" (click)="draw.emit('star ' + spike)">
+                {{spike}}
+                <mat-divider *ngIf="!last"></mat-divider>
+              </div>
+            </mat-menu>
+          </ng-container>
         </div>
 
         <div *ngIf="menuLink.effect === 'colorPicker'" class="colorPickerContainer">

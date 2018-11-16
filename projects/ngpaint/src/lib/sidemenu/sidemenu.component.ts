@@ -56,4 +56,12 @@ export class SidemenuComponent implements OnInit {
     this.drawParamChange.emit(this.drawParam);
   }
 
+  get spikesMenu() {
+    const spikesMenu = [];
+    for (let i = 3; i <= 15; i++) {
+      spikesMenu.push(i);
+    }
+    return spikesMenu;
+  }
+
 }
