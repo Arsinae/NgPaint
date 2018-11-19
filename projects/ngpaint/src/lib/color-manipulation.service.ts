@@ -5,6 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class ColorManipulationService {
 
+  static rgbToHex(red, green, blue) {
+    const r = (red < 16) ? ('0' + red.toString(16)) : red.toString(16);
+    const g = (green < 16) ? ('0' + green.toString(16)) : green.toString(16);
+    const b = (blue < 16) ? ('0' + blue.toString(16)) : blue.toString(16);
+    return '#' + r + g + b;
+  }
+
   constructor() { }
 
   rgbToHsl(red, green, blue) {

@@ -173,6 +173,8 @@ export class NgpaintComponent implements OnInit {
       this.drawingStar(spikes);
     } else if (this.draw === 'text') {
       this.drawingText();
+    } else if (this.draw === 'eyeDropper') {
+      this.eyeDropperColor();
     }
   }
 
@@ -293,6 +295,13 @@ export class NgpaintComponent implements OnInit {
         const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
         this.addToHistoric('draw text', imgData);
       };
+    };
+  }
+
+  eyeDropperColor() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.drawParam.color = this.pixelDrawing.getColor(event, this.canvas.nativeElement);
+      this.getDrawing('draw');
     };
   }
 }

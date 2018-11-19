@@ -46,7 +46,12 @@ mat-radio-button {
   flex-wrap: wrap;
 
   span {
-    padding: 0 4px;
+    padding: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #b3b3b3;
+    }
   }
 }
 

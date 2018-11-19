@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StylingIndex } from '@angular/core/src/render3/styling';
+import { ColorManipulationService } from '../color-manipulation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -313,5 +314,13 @@ export class PixelDrawingService {
     this.pixelDraw = [];
     document.onmousemove = null;
     document.onmouseup = null;
+  }
+
+  getColor(click, canvas) {
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    const data = ctx.getImageData(posX, posY, 1, 1).data;
+    return ColorManipulationService.rgbToHex(data[0], data[1], data[2]);
   }
 }
