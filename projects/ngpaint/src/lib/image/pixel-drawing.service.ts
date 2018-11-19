@@ -291,4 +291,27 @@ export class PixelDrawingService {
     ctx.closePath();
     ctx.stroke();
   }
+
+  drawText(click, canvas, param) {
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = param.color;
+    ctx.font = (30 + param.size) + 'px Comic Sans MS';
+    ctx.fillText('Hello World!', posX, posY);
+  }
+
+  printText(click, canvas, drawingInstance, param) {
+    drawingInstance.getContext('2d').clearRect(0, 0, drawingInstance.width, drawingInstance.height);
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    ctx.fillStyle = param.color;
+    ctx.font = (30 + param.size) + 'px Comic Sans MS';
+    ctx.fillText('Hello World!', posX, posY);
+    this.pixelDraw = [];
+    document.onmousemove = null;
+    document.onmouseup = null;
+  }
 }

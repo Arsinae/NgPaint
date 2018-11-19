@@ -171,6 +171,8 @@ export class NgpaintComponent implements OnInit {
     } else if (this.draw.match('star [0-9]+')) {
       const spikes = parseInt(this.draw.split(' ')[1], 10);
       this.drawingStar(spikes);
+    } else if (this.draw === 'text') {
+      this.drawingText();
     }
   }
 
@@ -275,6 +277,21 @@ export class NgpaintComponent implements OnInit {
         const ctx = this.canvas.nativeElement.getContext('2d');
         const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
         this.addToHistoric('draw star', imgData);
+      };
+    };
+  }
+
+  drawingText() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.drawText(event, this.drawingInstance.nativeElement, this.drawParam);
+      document.onmousemove = (click) => {
+        this.pixelDrawing.drawText(click, this.drawingInstance.nativeElement, this.drawParam);
+      };
+      document.onmouseup = (click) => {
+        this.pixelDrawing.printText(click, this.canvas.nativeElement, this.drawingInstance.nativeElement, this.drawParam);
+        const ctx = this.canvas.nativeElement.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, this.image.size.x, this.image.size.y);
+        this.addToHistoric('draw text', imgData);
       };
     };
   }

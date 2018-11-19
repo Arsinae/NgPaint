@@ -62,6 +62,7 @@
               </div>
             </mat-menu>
           </ng-container>
+          <span (click)="draw.emit('text')"><i class="fas fa-font"></i></span>
         </div>
 
         <div *ngIf="menuLink.effect === 'colorPicker'" class="colorPickerContainer">
