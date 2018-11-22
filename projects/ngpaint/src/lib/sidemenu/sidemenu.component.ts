@@ -17,7 +17,8 @@ export class SidemenuComponent implements OnInit {
   @Output() reset: EventEmitter<any> = new EventEmitter();
   @Output() changePicture: EventEmitter<any> = new EventEmitter();
   @Output() download: EventEmitter<any> = new EventEmitter();
-  @Output() draw: EventEmitter<any> = new EventEmitter();
+  @Output() drawEvent: EventEmitter<any> = new EventEmitter();
+  @Output() textEvent: EventEmitter<any> = new EventEmitter();
   @Output() drawParamChange: EventEmitter<any> = new EventEmitter();
   @Output() filter: EventEmitter<any> = new EventEmitter();
 
@@ -30,6 +31,7 @@ export class SidemenuComponent implements OnInit {
   splash = {color: '#ff0000', dist: 40};
   presetColor = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff',
     '#000000', '#ffffff', '#cccccc'];
+  text = {value: '', effect: null};
 
   constructor() { }
 

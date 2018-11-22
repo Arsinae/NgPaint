@@ -293,20 +293,25 @@ export class PixelDrawingService {
     ctx.stroke();
   }
 
-  drawText(click, canvas, param) {
+  drawText(click, canvas, param, text) {
     const ctx = canvas.getContext('2d');
     const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
     const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = param.color;
     ctx.font = (20 + param.size) + 'px Comic Sans MS';
-    ctx.fillText('Hello World!', posX, posY);
+    if (!text.effect) {
+      this.printBasicText(ctx, param, text.value, posX, posY);
+    } else if (text.effect === '3d') {
+      this.print3DText(ctx, param, text.value, posX, posY);
+    } else {
+      this.printNeonText(ctx, param, text.value, posX, posY);
+    }
     ctx.restore();
   }
 
-  printText(click, canvas, drawingInstance, param) {
+  printText(click, canvas, drawingInstance, param, text) {
     drawingInstance.getContext('2d').clearRect(0, 0, drawingInstance.width, drawingInstance.height);
     const ctx = canvas.getContext('2d');
     const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
@@ -314,29 +319,43 @@ export class PixelDrawingService {
     ctx.save();
     ctx.font = (20 + param.size) + 'px Comic Sans MS';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = param.color;
-    ctx.fillText('Hello World!', posX, posY);
+   if (!text.effect) {
+     this.printBasicText(ctx, param, text.value, posX, posY);
+   } else if (text.effect === '3d') {
+     this.print3DText(ctx, param, text.value, posX, posY);
+   } else {
+     this.printNeonText(ctx, param, text.value, posX, posY);
+   }
     ctx.restore();
     document.onmousemove = null;
     document.onmouseup = null;
   }
 
-  print3DText(ctx, param, posX, posY) {
-    ctx.fillStyle = 'cyan';
-    ctx.fillText('Hello World!', posX - 3, posY - 1);
+  printBasicText(ctx, param, text, posX, posY) {
     ctx.fillStyle = param.color;
-    ctx.fillText('Hello World!', posX, posY);
-    ctx.fillStyle = 'red';
-    ctx.fillText('Hello World!', posX + 3, posY + 1);
+    ctx.fillText(text, posX, posY);
   }
 
-  printNeonText(ctx, param, posX, posY) {
+  print3DText(ctx, param, text, posX, posY) {
+    ctx.shadowBlur = 2;
+    ctx.fillStyle = 'cyan';
+    ctx.shadowColor = 'cyan';
+    ctx.fillText(text, posX - 3, posY - 1);
+    ctx.fillStyle = 'white';
+    ctx.shadowColor = 'white';
+    ctx.fillText(text, posX, posY);
+    ctx.fillStyle = 'red';
+    ctx.shadowColor = 'red';
+    ctx.fillText(text, posX + 3, posY + 1);
+  }
+
+  printNeonText(ctx, param, text, posX, posY) {
     ctx.fillStyle = '#ffffff';
     ctx.shadowColor = param.color;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
     ctx.shadowBlur = 20;
-    ctx.fillText('Hello World!', posX, posY);
+    ctx.fillText(text, posX, posY);
   }
 
   getColor(click, canvas) {

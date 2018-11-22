@@ -1,5 +1,5 @@
 <div class="sidemenu">
-  <div *ngIf="submenu" (click)="menuBack(); draw.emit(null)">
+  <div *ngIf="submenu" (click)="menuBack(); drawEvent.emit(null)">
     Retour
   </div>
 
@@ -26,44 +26,61 @@
 
         <!-- Draw Input -->
 
-        <div *ngIf="menuLink.effect === 'pen'" (click)="draw.emit('draw')">
+        <div *ngIf="menuLink.effect === 'pen'" (click)="drawEvent.emit('draw')">
           {{menuLink.title}}
         </div>
 
-        <div *ngIf="menuLink.effect === 'square'" (click)="draw.emit('square')">
+        <div *ngIf="menuLink.effect === 'square'" (click)="drawEvent.emit('square')">
           {{menuLink.title}}
         </div>
 
-        <div *ngIf="menuLink.effect === 'emptySquare'" (click)="draw.emit('emptySquare')">
+        <div *ngIf="menuLink.effect === 'emptySquare'" (click)="drawEvent.emit('emptySquare')">
           {{menuLink.title}}
         </div>
 
-        <div *ngIf="menuLink.effect === 'round'" (click)="draw.emit('round')">
+        <div *ngIf="menuLink.effect === 'round'" (click)="drawEvent.emit('round')">
           {{menuLink.title}}
         </div>
 
-        <div *ngIf="menuLink.effect === 'circle'" (click)="draw.emit('circle')">
+        <div *ngIf="menuLink.effect === 'circle'" (click)="drawEvent.emit('circle')">
           {{menuLink.title}}
         </div>
 
         <div *ngIf="menuLink.effect === 'basicDrawForm'" class="iconMenu">
-          <span (click)="draw.emit('draw')"><i class="fas fa-pen"></i></span>
-          <span (click)="draw.emit('square')"><i class="fas fa-square"></i></span>
-          <span (click)="draw.emit('emptySquare')"><i class="far fa-square"></i></span>
-          <span (click)="draw.emit('round')"><i class="fas fa-circle"></i></span>
-          <span (click)="draw.emit('circle')"><i class="far fa-circle"></i></span>
-          <span (click)="draw.emit('arrow')"><i class="fas fa-arrow-up"></i></span>
+          <span (click)="drawEvent.emit('draw')"><i class="fas fa-pen"></i></span>
+          <span (click)="drawEvent.emit('square')"><i class="fas fa-square"></i></span>
+          <span (click)="drawEvent.emit('emptySquare')"><i class="far fa-square"></i></span>
+          <span (click)="drawEvent.emit('round')"><i class="fas fa-circle"></i></span>
+          <span (click)="drawEvent.emit('circle')"><i class="far fa-circle"></i></span>
+          <span (click)="drawEvent.emit('arrow')"><i class="fas fa-arrow-up"></i></span>
           <ng-container>
             <span [matMenuTriggerFor]="starMenu"><i class="fas fa-star"></i></span>
             <mat-menu #starMenu="matMenu">
-              <div *ngFor="let spike of spikesMenu; let last = last" class="spikeItem" (click)="draw.emit('star ' + spike)">
+              <div *ngFor="let spike of spikesMenu; let last = last" class="spikeItem" (click)="drawEvent.emit('star ' + spike)">
                 {{spike}}
                 <mat-divider *ngIf="!last"></mat-divider>
               </div>
             </mat-menu>
           </ng-container>
-          <span (click)="draw.emit('text')"><i class="fas fa-font"></i></span>
-          <span (click)="draw.emit('eyeDropper')"><i class="fas fa-eye-dropper"></i></span>
+          <span (click)="drawEvent.emit('eyeDropper')"><i class="fas fa-eye-dropper"></i></span>
+          <ng-container>
+            <span [matMenuTriggerFor]="textMenu"><i class="fas fa-font"></i></span>
+            <mat-menu #textMenu="matMenu">
+              <span mat-menu-item (click)="$event.stopPropagation()">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="text.value">
+                </mat-form-field>
+              </span>
+              <div mat-menu-item  (click)="$event.stopPropagation()">
+                <mat-radio-group [(ngModel)]="text.effect">
+                    <mat-radio-button [value]="null">None</mat-radio-button>
+                    <mat-radio-button [value]="'neon'">Neon</mat-radio-button>
+                    <mat-radio-button [value]="'3d'">3D</mat-radio-button>
+                  </mat-radio-group>
+              </div>
+              <button mat-raised-button (click)='textEvent.emit(text)'>{{menu.validateText}}</button>
+            </mat-menu>
+          </ng-container>
         </div>
 
         <div *ngIf="menuLink.effect === 'colorPicker'" class="colorPickerContainer">
