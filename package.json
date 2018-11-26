@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "postinstall": "ng build ngpaint && ng build --aot --prod",
+    "start": "node server.js",
     "build": "ng build ngpaint && ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -11,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.1.9",
+    "@angular/animations": "^6.1.10",
     "@angular/cdk": "^6.4.7",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",
@@ -23,6 +24,9 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
+    "express": "^4.16.4",
+    "ngx-color-picker": "^7.1.0",
+    "path": "^0.12.7",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

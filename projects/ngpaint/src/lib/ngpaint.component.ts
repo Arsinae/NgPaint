@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild, HostListener} from '@angular/core';
-import {NgpaintImageDirective} from './image/ngpaint-image.directive';
-import {FilterService} from './image/filter.service';
-import {PixelDrawingService} from './image/pixel-drawing.service';
+import {NgpaintImageDirective} from './imageManipulation/ngpaint-image.directive';
+import {FilterService} from './imageManipulation/filter.service';
+import {PixelDrawingService} from './imageManipulation/pixel-drawing.service';
 import {MenuDirective} from './sidemenu/menu.directive';
 
 @Component({
@@ -147,7 +147,6 @@ export class NgpaintComponent implements OnInit {
     const ctx = canvas.getContext('2d');
     ctx.putImageData(this.historic[i].data, 0, 0);
     this.image.dataUriBase = canvas.toDataURL();
-    console.log(this.historic[i], this.image.dataUriBase);
   }
 
   downloadPicture() {

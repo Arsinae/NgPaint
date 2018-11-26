@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NgpaintImageDirective} from '../image/ngpaint-image.directive';
+import {NgpaintImageDirective} from '../imageManipulation/ngpaint-image.directive';
 import {MenuDirective} from './menu.directive';
 
 @Component({

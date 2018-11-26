@@ -9,7 +9,6 @@ export class AppComponent {
   title = 'app';
 
   downloadImage(dataUri) {
-    console.log(dataUri);
     const a = document.createElement('a');
     a.href = URL.createObjectURL(dataUri);
     a.download = 'image.png';
