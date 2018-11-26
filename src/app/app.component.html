@@ -1,2 +1,12 @@
-<ngp-ngpaint (dataUrl)="downloadImage($event)"></ngp-ngpaint>
+<div class="paintHeader">
+  <span>NgPaint</span>
+</div>
 
+<div class="paintContainer">
+  <div class="header">Demo</div>
+  <ngp-ngpaint (dataBlob)="downloadImage($event)"></ngp-ngpaint>
+</div>
+
+<div class="paintExplanation">
+  <div class="header">Informations</div>
+</div>

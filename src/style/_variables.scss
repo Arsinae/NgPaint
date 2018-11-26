@@ -1,0 +1,25 @@
+
+$dark-blue: #07384c;
+$cyan: #11506a;
+$gold: #ba9e5a;
+
+$colored-blue-light: #5aa2ba;
+$colored-blue: #5a5aba;
+$colored-green: #72ba5a;
+$colored-purple: #a25aba;
+$colored-red: #ba5a5a;
+$colored-orange: #ba8a5a;
+
+$dark-red: #4b0718;
+$light-gray: #f1f1f1;
+
+$margin: 6px;
+
+$shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+$big-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+
+@mixin centered() {
+  position: absolute;
+  top: 50%; left: 50%;
+  @include transform(translate(-50%, -50%));
+}

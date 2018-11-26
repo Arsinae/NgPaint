@@ -14,7 +14,7 @@ export class NgpaintComponent implements OnInit {
   @Input() image: NgpaintImageDirective = new NgpaintImageDirective();
   @Input() menu: MenuDirective = new MenuDirective();
 
-  @Output() dataUrl: EventEmitter<any> = new EventEmitter();
+  @Output() dataBlob: EventEmitter<any> = new EventEmitter();
 
   @ViewChild ('canvas') canvas;
   @ViewChild ('drawingInstance') drawingInstance;
@@ -151,7 +151,9 @@ export class NgpaintComponent implements OnInit {
   }
 
   downloadPicture() {
-    this.dataUrl.emit(this.canvas.nativeElement.toDataURL());
+    this.canvas.nativeElement.toBlob((blob) => {
+      this.dataBlob.emit(blob);
+    });
   }
 
   getDrawing(ev) {

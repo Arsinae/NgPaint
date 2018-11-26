@@ -1,0 +1,33 @@
+@import "../style/variables";
+
+.paintHeader {
+  width: 100%;
+  box-sizing: border-box;
+  padding: $margin*2;
+  background-color: $dark-red;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: $margin;
+  box-shadow: $shadow;
+}
+
+.paintContainer>.header, .paintExplanation>.header {
+  text-align: center;
+  font-size: 24px;
+  color: $dark-red;
+  text-decoration: underline;
+}
+
+.paintContainer {
+  width: 80%;
+  margin: $margin 10%;
+  min-height: 600px;
+  max-height: 600px;
+  overflow: auto;
+}
+
+.paintExplanation {
+  width: 90%;
+  margin: $margin 5%;
+}

@@ -3,14 +3,17 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'app';
 
   downloadImage(dataUri) {
-    const href = document.createElement('a');
-    href.href = dataUri;
-    href.setAttribute('download', 'image.png');
+    console.log(dataUri);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(dataUri);
+    a.download = 'image.png';
+    document.body.appendChild(a);
+    a.click();
   }
 }
