@@ -1,3 +1,5 @@
+@import "../style/variables";
+
 .itemListDisplay {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,7 @@
 .sidemenu {
   display: flex;
   justify-content: space-evenly;
-  border-bottom: 1px lightgray solid;
+  border-bottom: 1px $light-gray solid;
   margin-bottom: 4px;
 
   &>div {
@@ -17,6 +19,15 @@
     display: flex;
     align-self: center;
     flex-direction: column;
+
+    & .hoverText {
+      padding: $margin;
+      border-radius: 10px / 50%;
+
+      &:hover {
+        background-color: $light-gray;
+      }
+    }
   }
 }
 
@@ -26,7 +37,7 @@
 }
 
 mat-radio-button {
-  margin: 4px;
+  margin: $margin;
 }
 
 #imageUpload {
@@ -44,11 +55,11 @@ mat-radio-button {
   flex-wrap: wrap;
 
   span {
-    padding: 4px;
+    padding: $margin;
     cursor: pointer;
 
     &:hover {
-      background-color: #b3b3b3;
+      background-color: $light-gray;
     }
   }
 }
@@ -74,13 +85,52 @@ mat-radio-button {
 
     div {
       height: 15px; width: 15px;
-      margin: 4px;
-      border: 0.5px solid lightgray;
+      margin: $margin;
+      border: 0.5px solid $light-gray;
       box-sizing: border-box;
 
       &:hover {
         border-width: 2px;
       }
+    }
+  }
+}
+
+.rangeSelector {
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    width: 100%;
+    background-color: $light-gray;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 50%;
+    width: 12px; height: 12px;
+    background: $dark-red;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      width: 15px; height: 15px;
+    }
+  }
+
+  &::-moz-range-thumb {
+    border: none;
+    border-radius: 50%;
+    width: 12px; height: 12px;
+    background: $dark-red;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      width: 15px; height: 15px;
     }
   }
 }

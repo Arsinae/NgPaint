@@ -6,7 +6,7 @@ import {MenuElementDirective} from './menu-element.directive';
 })
 export class MenuDirective {
 
-  public color = 'white';
+  public color = 'red';
   public validateText = 'Valider';
   public cancelText = 'Annuler';
   public importText = 'Importer une image';
@@ -33,11 +33,12 @@ export class MenuDirective {
     {title: 'Sépia', submenu: '/effect/filter', redirect: null, effect: 'sepia'},
     {title: 'Candy', submenu: '/effect/filter', redirect: null, effect: 'candy'},
     {title: 'Arc-en-Ciel', submenu: '/effect/filter', redirect: null, effect: 'rainbow'},
-    {title: 'Flou Gaussien', submenu: '/effect/filter', redirect: null, effect: 'gaussian'},
-    {title: 'Sharpen', submenu: '/effect/filter', redirect: null, effect: 'sharpen'},
-    {title: 'Vignette', submenu: '/effect/filter', redirect: null, effect: 'vignette'},
-    {title: 'Réchauffer', submenu: '/effect/filter', redirect: null, effect: 'warmer'},
-    {title: 'Refroidir', submenu: '/effect/filter', redirect: null, effect: 'colder'},
+    {title: 'Suite', submenu: '/effect/filter', redirect: '2', effect: null},
+    {title: 'Flou Gaussien', submenu: '/effect/filter/2', redirect: null, effect: 'gaussian'},
+    {title: 'Sharpen', submenu: '/effect/filter/2', redirect: null, effect: 'sharpen'},
+    {title: 'Vignette', submenu: '/effect/filter/2', redirect: null, effect: 'vignette'},
+    {title: 'Réchauffer', submenu: '/effect/filter/2', redirect: null, effect: 'warmer'},
+    {title: 'Refroidir', submenu: '/effect/filter/2', redirect: null, effect: 'colder'},
     {title: 'Rouge;Vert;Bleu;Valeur', submenu: '/effect/emphasing', redirect: null, effect: 'emphasing'},
     {title: 'Splash', submenu: '/effect/splash', redirect: null, effect: 'splash'}
   ];

@@ -1,6 +1,6 @@
 <div class="sidemenu">
-  <div *ngIf="submenu" (click)="menuBack(); drawEvent.emit(null)">
-    Retour
+  <div *ngIf="submenu" (click)="menuBack(); drawEvent.emit(null)" class="backButton">
+    <span class="hoverText">Retour</span>
   </div>
 
   <ng-container *ngFor="let menuLink of menu.menu">
@@ -10,15 +10,15 @@
         <!-- Manage Input -->
 
         <div *ngIf="menuLink.effect === 'download'" (click)="download.emit(null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'reset'" (click)="reset.emit(null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'changePicture'">
-            <label for="imageUpload" id="imageUploadLabel">
+            <label for="imageUpload" id="imageUploadLabel" class="hoverText">
               <span>{{menuLink.title}}</span>
             </label>
             <input type="file" id="imageUpload" (change)="changePicture.emit($event)">
@@ -27,23 +27,23 @@
         <!-- Draw Input -->
 
         <div *ngIf="menuLink.effect === 'pen'" (click)="drawEvent.emit('draw')">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'square'" (click)="drawEvent.emit('square')">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'emptySquare'" (click)="drawEvent.emit('emptySquare')">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'round'" (click)="drawEvent.emit('round')">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'circle'" (click)="drawEvent.emit('circle')">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'basicDrawForm'" class="iconMenu">
@@ -94,7 +94,7 @@
 
         <div *ngIf="menuLink.effect === 'sizeSlider'">
           <div>{{menuLink.title}}: </div>
-          <span><input type="range" min="1" max="15" [(ngModel)]="drawParam.size" (change)="drawParamChange.emit(drawParam)">
+          <span><input class="rangeSelector" type="range" min="1" max="15" [(ngModel)]="drawParam.size" (change)="drawParamChange.emit(drawParam)">
                 {{drawParam.size}}px
               </span>
         </div>
@@ -103,62 +103,62 @@
 
         <div *ngIf="menuLink.effect === 'brightness'" class="itemListDisplay">
           <span>{{menuLink.title}}</span>
-          <span><input type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
+          <span><input class="rangeSelector" type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
           <button (click)="applyFilter('brightness', brightness)">{{menu.validateText}}</button>
         </div>
 
         <div *ngIf="menuLink.effect === 'contrast'" class="itemListDisplay">
           <span>{{menuLink.title}}</span>
-          <span><input type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
+          <span><input class="rangeSelector" type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
           <button (click)="applyFilter('contrast', contrast)">{{menu.validateText}}</button>
         </div>
 
         <div *ngIf="menuLink.effect === 'saturation'" class="itemListDisplay">
           <span>{{menuLink.title}}</span>
-          <span><input type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
+          <span><input class="rangeSelector" type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
           <button (click)="applyFilter('saturation', saturation)">{{menu.validateText}}</button>
         </div>
 
         <!-- Filters -->
 
         <div *ngIf="menuLink.effect === 'invert'" (click)="applyFilter('invert', null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'grayscale'" (click)="applyFilter('grayscale', null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'sepia'" (click)="applyFilter('sepia', null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'candy'" (click)="applyFilter('candy', null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'rainbow'" (click)="applyFilter('rainbow', null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'gaussian'" (click)="applyFilter('gaussian', null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'sharpen'" (click)="applyFilter('sharpen', null)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'vignette'" (click)="applyFilter('vignetting', 0.5)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'warmer'" (click)="applyFilter('warmer', 15)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <div *ngIf="menuLink.effect === 'colder'" (click)="applyFilter('colder', 15)">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
 
         <!-- Emphasing -->
@@ -172,7 +172,7 @@
           </div>
           <div>
             <span>{{menuLink.title.split(';')[3]}}</span>
-            <span><input type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}</span>
+            <span><input class="rangeSelector" type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}</span>
           </div>
           <div>
             <button (click)="applyFilter('emphasing', emphasing)">{{menu.validateText}}</button>
@@ -186,7 +186,7 @@
           </div>
           <div>
             <span>
-              <input type="range" min="10" max="100" [(ngModel)]="splash.dist"> {{splash.dist}}
+              <input class="rangeSelector" type="range" min="10" max="100" [(ngModel)]="splash.dist"> {{splash.dist}}
             </span>
           </div>
           <div>
@@ -198,7 +198,7 @@
 
       <ng-container *ngIf="menuLink.redirect">
         <div (click)="submenu = submenu + '/' + menuLink.redirect">
-          {{menuLink.title}}
+          <span class="hoverText">{{menuLink.title}}</span>
         </div>
       </ng-container>
 
@@ -207,7 +207,7 @@
 
   <div *ngIf="historic.length > 1">
     <div (click)="reset.emit(historic[historic.length - 2])">
-      {{menu.cancelText}}
+      <span class="hoverText">{{menu.cancelText}}</span>
     </div>
   </div>
 </div>
