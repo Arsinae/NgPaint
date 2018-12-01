@@ -9,6 +9,7 @@ export class MenuDirective {
   public color = 'white';
   public validateText = 'Valider';
   public cancelText = 'Annuler';
+  public importText = 'Importer une image';
 
   public menu: Array<MenuElementDirective> = [
     {title: 'Dessin', submenu: '', redirect: 'draw', effect: null},

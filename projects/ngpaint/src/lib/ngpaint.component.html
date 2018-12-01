@@ -1,6 +1,6 @@
 <div *ngIf="!image.dataUri">
   <label for="imageUpload" id="imageUploadLabel">
-    <span>Importer une image</span>
+    <span>{{menu.importText}}</span>
   </label>
   <input type="file" id="imageUpload" (change)="importImage($event)">
 </div>

@@ -9,4 +9,82 @@
 
 <div class="paintExplanation">
   <div class="header">Informations</div>
+
+  <mat-tab-group>
+    <mat-tab label="Vue d'ensemble">
+      <div class="explanation">
+        <div class="subtitle">MenuDirective</div>
+
+        <table>
+          <tr>
+            <td>validateText: String</td>
+            <td>Texte de validation des boutons d'effets</td>
+          </tr>
+          <tr>
+            <td>cancelText: String</td>
+            <td>Texte du bouton de retour arrière</td>
+          </tr>
+          <tr>
+            <td>importText: String</td>
+            <td>Texte du bouton d'import d'image</td>
+          </tr>
+          <tr>
+            <td>menu: Array&lt;MenuElementDirective&gt;</td>
+            <td>Tableau représentant le menu</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="explanation">
+        <div class="subtitle">MenuElementDirective</div>
+
+        <table>
+          <tr>
+            <td>effect: String</td>
+            <td>Nom de l'effet à appliquer</td>
+          </tr>
+         <tr>
+            <td>title: String</td>
+            <td>Titre de l'effet dans le menu</td>
+          </tr>
+           <tr>
+            <td>redirect: String</td>
+            <td>Menu vers lequel on se redirige en cliquant</td>
+          </tr>
+          <tr>
+            <td>submenu: String</td>
+            <td>Sous-menu dans lequel se situe le bouton</td>
+          </tr>
+        </table>
+        <div class="notes">*Un élément ne peut pas avoir un effet et une redirection</div>
+      </div>
+
+      <div class="explanation">
+        <div class="subtitle">DataBlob</div>
+
+        <div class="explanationText">@Output() récupérant les données de l'image sous la forme d'un Blob lors de l'appel du téléchargement</div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Menu">
+      <div class="explanation">
+        <div class="subtitle">Menu par défaut</div>
+        <table>
+          <tr>
+            <th>Effect</th>
+            <th>Title</th>
+            <th>Redirect</th>
+            <th>Submenu</th>
+          </tr>
+
+          <tr *ngFor="let line of menu">
+            <td>{{line.effect || 'null'}}</td>
+            <td>{{line.title}}</td>
+            <td>{{line.redirect || 'null'}}</td>
+            <td>{{line.submenu || 'null'}}</td>
+          </tr>
+        </table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
