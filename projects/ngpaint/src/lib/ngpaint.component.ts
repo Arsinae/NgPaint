@@ -11,13 +11,14 @@ import {MenuDirective} from './sidemenu/menu.directive';
 })
 export class NgpaintComponent implements OnInit {
 
-  @Input() image: NgpaintImageDirective = new NgpaintImageDirective();
   @Input() menu: MenuDirective = new MenuDirective();
 
   @Output() dataBlob: EventEmitter<any> = new EventEmitter();
 
   @ViewChild ('canvas') canvas;
   @ViewChild ('drawingInstance') drawingInstance;
+
+  image: NgpaintImageDirective = new NgpaintImageDirective();
 
   draw: string = null;
   drawParam = {color: '#ff0000', size: 1};

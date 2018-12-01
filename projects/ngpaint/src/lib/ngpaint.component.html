@@ -1,8 +1,9 @@
-<div *ngIf="!image.dataUri">
+<div *ngIf="!image.dataUri" class="uploadContainer">
   <label for="imageUpload" id="imageUploadLabel">
+    <span><i class="fas fa-upload"></i></span>
     <span>{{menu.importText}}</span>
   </label>
-  <input type="file" id="imageUpload" (change)="importImage($event)">
+  <input type="file" id="imageUpload" (change)="importImage($event)" accept="image/*">
 </div>
 
 <div class="paintContainer">

@@ -1,11 +1,17 @@
+@import "style/variables";
+
 #imageUpload {
   display: none;
 }
 
+.uploadContainer {
+  text-align: center;
+  padding: $margin*3;
+}
+
 #imageUploadLabel span {
   cursor: pointer;
-  width: 100%;
-  text-align: center;
+  padding-left: $margin;
 }
 
 .paintContainer {
