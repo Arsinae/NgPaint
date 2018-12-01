@@ -8,6 +8,7 @@ import { ColorManipulationService } from '../color-manipulation.service';
 export class PixelDrawingService {
 
   pixelDraw: Array<{x: number, y: number}> = [];
+  img;
 
   constructor() { }
 
@@ -364,5 +365,70 @@ export class PixelDrawingService {
     const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
     const data = ctx.getImageData(posX, posY, 1, 1).data;
     return ColorManipulationService.rgbToHex(data[0], data[1], data[2]);
+  }
+
+  compareColor (color1, color2) {
+    return (color1.r === color2.r && color1.g === color2.g && color1.b === color2.b);
+  }
+
+  checkFill(posX, posY, baseColor, ctx, newColor) {
+    if (posX > 0) {
+      const leftIndex = ((posX - 1) + (posY * ctx.canvas.width)) * 4;
+      const leftColorRgb = {r: this.img.data[leftIndex], g: this.img.data[leftIndex + 1], b: this.img.data[leftIndex + 2]};
+      const leftColorValue = this.img.data[leftIndex] + this.img.data[leftIndex + 1] + this.img.data[leftIndex + 2];
+      if (Math.abs(baseColor - leftColorValue) < 20 && !this.compareColor(leftColorRgb, newColor)) {
+        this.img.data[leftIndex] = newColor.r;
+        this.img.data[leftIndex + 1] = newColor.g;
+        this.img.data[leftIndex + 2] = newColor.b;
+        this.checkFill(posX - 1, posY, baseColor, ctx, newColor);
+      }
+    }
+    if (posX + 1 < ctx.canvas.width) {
+      const rightIndex = ((posX + 1) + (posY * ctx.canvas.width)) * 4;
+      const rightColorRgb = {r: this.img.data[rightIndex], g: this.img.data[rightIndex + 1], b: this.img.data[rightIndex + 2]};
+      const rightColorValue = this.img.data[rightIndex] + this.img.data[rightIndex + 1] + this.img.data[rightIndex + 2];
+      if (Math.abs(baseColor - rightColorValue) < 20 && !this.compareColor(rightColorRgb, newColor)) {
+        this.img.data[rightIndex] = newColor.r;
+        this.img.data[rightIndex + 1] = newColor.g;
+        this.img.data[rightIndex + 2] = newColor.b;
+        this.checkFill(posX + 1, posY, baseColor, ctx, newColor);
+      }
+    }
+    if (posY > 0) {
+      const upIndex = (posX + ((posY - 1) * ctx.canvas.width)) * 4;
+      const upColorRgb = {r: this.img.data[upIndex], g: this.img.data[upIndex + 1], b: this.img.data[upIndex + 2]};
+      const upColorValue = this.img.data[upIndex] + this.img.data[upIndex + 1] + this.img.data[upIndex + 2];
+      if (Math.abs(baseColor - upColorValue) < 20 && !this.compareColor(upColorRgb, newColor)) {
+        this.img.data[upIndex] = newColor.r;
+        this.img.data[upIndex + 1] = newColor.g;
+        this.img.data[upIndex + 2] = newColor.b;
+        this.checkFill(posX, posY - 1, baseColor, ctx, newColor);
+      }
+    }
+    if (posY + 1 < ctx.canvas.height) {
+      const bottomIndex = (posX + ((posY + 1) * ctx.canvas.width)) * 4;
+      const bottomColorRgb = {r: this.img.data[bottomIndex], g: this.img.data[bottomIndex + 1], b: this.img.data[bottomIndex + 2]};
+      const bottomColorValue = this.img.data[bottomIndex] + this.img.data[bottomIndex + 1] + this.img.data[bottomIndex + 2];
+      if (Math.abs(baseColor - bottomColorValue) < 20 && !this.compareColor(bottomColorRgb, newColor)) {
+        this.img.data[bottomIndex] = newColor.r;
+        this.img.data[bottomIndex + 1] = newColor.g;
+        this.img.data[bottomIndex + 2] = newColor.b;
+        this.checkFill(posX, posY + 1, baseColor, ctx, newColor);
+      }
+    }
+  }
+
+  fillColor(click, canvas, param) {
+    const ctx = canvas.getContext('2d');
+    const posX = click.clientX - canvas.parentNode.parentNode.offsetLeft;
+    const posY = click.clientY - canvas.parentNode.parentNode.offsetTop;
+    const baseColor = ctx.getImageData(posX, posY, 1, 1).data;
+    const baseColorValue = baseColor[0] + baseColor[1] + baseColor[2];
+    const newColor = ColorManipulationService.hexToRGB(param.color);
+    ctx.fillStyle = param.color;
+    ctx.fillRect(posX, posY, 1, 1);
+    this.img = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+    this.checkFill(posX, posY, baseColorValue, ctx, newColor);
+    ctx.putImageData(this.img, 0, 0);
   }
 }

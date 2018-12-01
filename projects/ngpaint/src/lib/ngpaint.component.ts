@@ -174,6 +174,8 @@ export class NgpaintComponent implements OnInit {
       this.drawingStar(spikes);
     } else if (this.draw === 'eyeDropper') {
       this.eyeDropperColor();
+    } else if (this.draw === 'fill') {
+      this.fillColor();
     }
   }
 
@@ -286,6 +288,12 @@ export class NgpaintComponent implements OnInit {
     this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
       this.drawParam.color = this.pixelDrawing.getColor(event, this.canvas.nativeElement);
       this.getDrawing('draw');
+    };
+  }
+
+  fillColor() {
+    this.canvas.nativeElement.parentNode.parentNode.onmousedown = (event) => {
+      this.pixelDrawing.fillColor(event, this.canvas.nativeElement, this.drawParam);
     };
   }
 
