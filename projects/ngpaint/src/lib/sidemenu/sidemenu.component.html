@@ -78,7 +78,7 @@
                     <mat-radio-button [value]="'3d'">3D</mat-radio-button>
                   </mat-radio-group>
               </div>
-              <button mat-raised-button (click)='textEvent.emit(text)'>{{menu.validateText}}</button>
+              <button class="validButton fullWidthInput" (click)='textEvent.emit(text)'>{{menu.validateText}}</button>
             </mat-menu>
           </ng-container>
         </div>
@@ -104,19 +104,19 @@
         <div *ngIf="menuLink.effect === 'brightness'" class="itemListDisplay">
           <span>{{menuLink.title}}</span>
           <span><input class="rangeSelector" type="range" min="-100" max="100" [(ngModel)]="brightness"> {{brightness}}%</span>
-          <button (click)="applyFilter('brightness', brightness)">{{menu.validateText}}</button>
+          <button class="validButton" (click)="applyFilter('brightness', brightness)">{{menu.validateText}}</button>
         </div>
 
         <div *ngIf="menuLink.effect === 'contrast'" class="itemListDisplay">
           <span>{{menuLink.title}}</span>
           <span><input class="rangeSelector" type="range" min="-100" max="100" [(ngModel)]="contrast"> {{contrast}}%</span>
-          <button (click)="applyFilter('contrast', contrast)">{{menu.validateText}}</button>
+          <button class="validButton" (click)="applyFilter('contrast', contrast)">{{menu.validateText}}</button>
         </div>
 
         <div *ngIf="menuLink.effect === 'saturation'" class="itemListDisplay">
           <span>{{menuLink.title}}</span>
           <span><input class="rangeSelector" type="range" min="-100" max="100" [(ngModel)]="saturation"> {{saturation}}%</span>
-          <button (click)="applyFilter('saturation', saturation)">{{menu.validateText}}</button>
+          <button class="validButton" (click)="applyFilter('saturation', saturation)">{{menu.validateText}}</button>
         </div>
 
         <!-- Filters -->
@@ -175,7 +175,7 @@
             <span><input class="rangeSelector" type="range" min="0" max="255" [(ngModel)]="emphasing.intensity">{{emphasing.intensity}}</span>
           </div>
           <div>
-            <button (click)="applyFilter('emphasing', emphasing)">{{menu.validateText}}</button>
+            <button class="validButton" (click)="applyFilter('emphasing', emphasing)">{{menu.validateText}}</button>
           </div>
         </ng-container>
 
@@ -190,7 +190,7 @@
             </span>
           </div>
           <div>
-            <button (click)="applyFilter('splash', splash)">{{menu.validateText}}</button>
+            <button class="validButton" (click)="applyFilter('splash', splash)">{{menu.validateText}}</button>
           </div>
         </ng-container>
 

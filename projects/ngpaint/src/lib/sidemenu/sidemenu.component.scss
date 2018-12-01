@@ -50,6 +50,22 @@ mat-radio-button {
   text-align: center;
 }
 
+.validButton {
+  color: white;
+  background-color: $dark-red;
+  border-radius: 10px / 50%;
+  box-shadow: $shadow;
+  border: none;
+
+  &.fullWidthInput {
+    width: 90%;
+    margin: 5% $margin;
+    padding: $margin;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
+
 .iconMenu {
   flex-direction: row !important;
   flex-wrap: wrap;
