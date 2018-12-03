@@ -6,6 +6,7 @@
 }
 
 .sidemenu {
+  --main-color: #{$dark-red};
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px $light-gray solid;
@@ -31,6 +32,14 @@
   }
 }
 
+.sidemenu.blue {
+  --main-color: #{$dark-blue};
+}
+
+.sidemenu.green {
+  --main-color: #{$dark-green};
+}
+
 .radioFlex {
   display: flex;
   flex-direction: column;
@@ -52,10 +61,11 @@ mat-radio-button {
 
 .validButton {
   color: white;
-  background-color: $dark-red;
+  background-color: var(--main-color);
   border-radius: 10px / 50%;
   box-shadow: $shadow;
   border: none;
+  cursor: pointer;
 
   &.fullWidthInput {
     width: 90%;
@@ -128,7 +138,7 @@ mat-radio-button {
     border: none;
     border-radius: 50%;
     width: 12px; height: 12px;
-    background: $dark-red;
+    background: var(--main-color);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
@@ -141,7 +151,7 @@ mat-radio-button {
     border: none;
     border-radius: 50%;
     width: 12px; height: 12px;
-    background: $dark-red;
+    background: var(--main-color);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
