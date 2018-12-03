@@ -1,3 +1,4 @@
+import { NgpaintImageDirective } from './../../projects/ngpaint/src/lib/imageManipulation/ngpaint-image.directive';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  image: NgpaintImageDirective = null;
 
   menu = [
     {title: 'Dessin', submenu: '', redirect: 'draw', effect: null},
@@ -39,6 +42,22 @@ export class AppComponent {
     {title: 'Rouge;Vert;Bleu;Valeur', submenu: '/effect/emphasing', redirect: null, effect: 'emphasing'},
     {title: 'Splash', submenu: '/effect/splash', redirect: null, effect: 'splash'}
   ];
+
+  // Use for External Import
+  importImage(ev) {
+    if (ev.target.files && ev.target.files[0]
+      && ev.target.files[0].type.match('image\\/[a-zA-Z]+')) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          this.image = NgpaintImageDirective.create(img.width, img.height, event.target['result']);
+        };
+        img.src = event.target['result'];
+      };
+      reader.readAsDataURL(ev.target.files[0]);
+    }
+  }
 
   downloadImage(dataUri) {
     const a = document.createElement('a');

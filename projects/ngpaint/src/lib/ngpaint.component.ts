@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild, HostListener} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, HostListener, OnChanges} from '@angular/core';
 import {NgpaintImageDirective} from './imageManipulation/ngpaint-image.directive';
 import {FilterService} from './imageManipulation/filter.service';
 import {PixelDrawingService} from './imageManipulation/pixel-drawing.service';
@@ -9,16 +9,16 @@ import {MenuDirective} from './sidemenu/menu.directive';
   templateUrl: './ngpaint.component.html',
   styleUrls: ['./ngpaint.component.scss']
 })
-export class NgpaintComponent implements OnInit {
+export class NgpaintComponent implements OnInit, OnChanges {
 
   @Input() menu: MenuDirective = new MenuDirective();
+  @Input() image: NgpaintImageDirective = new NgpaintImageDirective();
 
   @Output() dataBlob: EventEmitter<any> = new EventEmitter();
 
   @ViewChild ('canvas') canvas;
   @ViewChild ('drawingInstance') drawingInstance;
 
-  image: NgpaintImageDirective = new NgpaintImageDirective();
 
   draw: string = null;
   drawParam = {color: '#ff0000', size: 1};
@@ -28,6 +28,12 @@ export class NgpaintComponent implements OnInit {
   constructor(private filterCalculator: FilterService, private pixelDrawing: PixelDrawingService) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes) {
+    if (changes['image']) {
+      this.loadInCanvas();
+    }
   }
 
   @HostListener('window:keydown', ['$event']) onKeyPress(event: KeyboardEvent) {

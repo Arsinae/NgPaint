@@ -3,7 +3,6 @@
 </div>
 
 <div class="paintContainer">
-  <div class="header">Demo</div>
   <ngp-ngpaint (dataBlob)="downloadImage($event)"></ngp-ngpaint>
 </div>
 
@@ -27,6 +26,10 @@
           <tr>
             <td>importText: String</td>
             <td>Texte du bouton d'import d'image</td>
+          </tr>
+          <tr>
+            <td>color: String</td>
+            <td>Couleur du menu; red(défaut), blue, green</td>
           </tr>
           <tr>
             <td>menu: Array&lt;MenuElementDirective&gt;</td>
